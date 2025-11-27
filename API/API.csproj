@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Controllers\Abstract\" />
+    <Folder Include="DataAccess\Abstract\" />
+    <Folder Include="Services\Abstract\" />
   </ItemGroup>
 
   <ItemGroup>
