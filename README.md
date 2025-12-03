@@ -1,7 +1,8 @@
 Dokumentation
 
 Cyril
-
+Ich habe das GitHub- Repository erstellt. Danach habe ich das Frontend - und Backend-Projekt erstellt und ein Shared-Projekt für die DTO-Ablage. 
+Ich schlug vor, die Datenbank auf Supabase aufzusetzen, damit nicht alle die Datenbank lokal installieren müssen.
 
 Nelio
 
