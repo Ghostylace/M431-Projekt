@@ -5,7 +5,7 @@ Ich habe das GitHub- Repository erstellt. Danach habe ich das Frontend - und Bac
 Ich schlug vor, die Datenbank auf Supabase aufzusetzen, damit nicht alle die Datenbank lokal installieren müssen.
 
 Nelio
-
+Ich habe die Datenbank erstellt. Zuerst in mysql und nach einer beschprechung haben wir uns darauf geeinigt das wie es auf PostgreSQL ändern und die Datenbank über Supabase hosten. Dadurch können wir alle diese anpassen und einsehen.
 
 Nevio
 
