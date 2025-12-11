@@ -22,7 +22,7 @@ namespace Web
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped(sp =>
             {
-                var customHandler = new CustomHttpHandler(sp.GetRequiredService<IJSRuntime>())
+                CustomHttpHandler customHandler = new CustomHttpHandler(sp.GetRequiredService<IJSRuntime>())
                 {
                     InnerHandler = new HttpClientHandler()
                 };
