@@ -1,6 +1,6 @@
-﻿using API.Models;
+﻿using API.Modelsn;
 using API.Services.Interfaces;
-using Shared.Dtos;
+using Shared.DTOs;
 using Supabase;
 
 namespace API.Services

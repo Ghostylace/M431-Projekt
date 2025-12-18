@@ -1,4 +1,4 @@
-﻿namespace Shared.Dtos
+﻿namespace Shared.DTOs
 {
     public class UpdateGradeAdjustmentStatusRequest
     {

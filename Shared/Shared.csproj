@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharePointPnPCoreOnline" Version="3.28.2012" />
+    <None Remove="DTOs\Auth\b4q24kxc.jyx~" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using API.Models;
-using Shared.Dtos;
+using API.Modelsn;
+using Shared.DTOs;
 
 namespace API.Services.Interfaces
 {
