@@ -1,14 +1,9 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using API.Configuration;
+﻿using System.Net.Mime;
 using API.Models;
 using API.Services.Abstract;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Shared.DTOs.Teacher;
 using Supabase;
+using Supabase.Postgrest.Responses;
 using static Supabase.Postgrest.Constants;
 
 namespace API.Services;
@@ -23,15 +18,30 @@ public class LehrerService : ILehrerService
         _supabase = supabase;
         
     }
-    public async Task<TeacherDTO?> GetTeacherByEmail(string email)
-    {
-        Supabase.Postgrest.Responses.ModeledResponse<Teacher> response = await _supabase.From<Teacher>().Filter("lehrperson.e_mail", Operator.Equals, $"{email}").Get();
-        HttpResponseMessage? resp = response.ResponseMessage;
 
-        if (resp.IsSuccessStatusCode)
+    public async Task<List<TeacherDTO>?> GetAllTeachers()
+    {
+        ModeledResponse<Teacher> response = await _supabase.From<Teacher>().Get();
+
+        if (response.ResponseMessage.IsSuccessStatusCode)
         {
-            TeacherDTO teacher = await resp.Content.ReadFromJsonAsync<TeacherDTO>() ?? new();
-            return teacher;
+            List<TeacherDTO> outP = await ConvertList(response.Models);
+            return outP;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public async Task<List<TeacherDTO>?> GetTeacherByEmail(string email)
+    {
+        ModeledResponse<Teacher> response = await _supabase.From<Teacher>().Filter("lehrperson.e_mail", Operator.Equals, $"{email}").Get();
+
+        if (response.ResponseMessage.IsSuccessStatusCode)
+        {
+            List<TeacherDTO> outP = await ConvertList(response.Models);
+            return outP;
         }
         else
         {
@@ -39,6 +49,33 @@ public class LehrerService : ILehrerService
         }
     }
     
+    private async Task<List<TeacherDTO>> ConvertList(List<Teacher> input)
+    {
+        List<TeacherDTO> toReturn = [];
+
+        foreach(var teacher in input)
+        {
+            toReturn.Add(new TeacherDTO()
+            {
+                Id = teacher.Id,
+                Vorname = teacher.Vorname,
+                Nachname = teacher.Nachname,
+                Email = teacher.Email,
+            });
+        }
+        return toReturn;
+    }
+
+    private async Task<TeacherDTO> ConvertSingle(Teacher input)
+    {
+        return new TeacherDTO()
+        {
+            Id = input.Id,
+            Vorname = input.Vorname,
+            Nachname = input.Nachname,
+            Email = input.Email,
+        };
+    }
 
     //public async Task<List<TeacherDTO>?> AddTeacher(Teacher teacher)
     //{

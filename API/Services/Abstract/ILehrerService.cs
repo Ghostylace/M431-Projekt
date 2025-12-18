@@ -4,6 +4,7 @@ namespace API.Services.Abstract
 {
     public interface ILehrerService
     {
-        Task<TeacherDTO?> GetTeacherByEmail(string email);
+        Task<List<TeacherDTO>?> GetAllTeachers();
+        Task<List<TeacherDTO>?> GetTeacherByEmail(string email);
     }
 }

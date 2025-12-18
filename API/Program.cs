@@ -1,4 +1,4 @@
-
+using API.Services;
 using Supabase;
 
 namespace API
@@ -12,6 +12,7 @@ namespace API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddServiceLayer();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
