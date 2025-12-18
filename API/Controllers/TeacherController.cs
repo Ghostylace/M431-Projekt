@@ -6,10 +6,10 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class LehrerController : ControllerBase
+public class TeacherController : ControllerBase
 {
     private readonly ILehrerService _lehrerService;
-    public LehrerController(ILehrerService lehrerService)
+    public TeacherController(ILehrerService lehrerService)
     {
         _lehrerService = lehrerService;
     }

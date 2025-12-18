@@ -2,7 +2,7 @@
 using API.Modelsn;
 using Shared.DTOs;
 
-namespace API.Services.Interfaces
+namespace API.Services.Abstract
 {
     public interface IGradeAdjustmentService
     {
