@@ -1,4 +1,4 @@
-﻿namespace Web.Interfaces
+﻿namespace Web.Services.Interfaces
 {
     public interface IAuthService
     {

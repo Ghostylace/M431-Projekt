@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
+using Web.Services;
+using Web.Services.Interfaces;
 
 namespace Web
 {
@@ -19,6 +21,11 @@ namespace Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
+            builder.Services.AddScoped<ITest, Test>();
+
+
+
+
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7287/api/") });
             builder.Services.AddScoped(sp =>
             {
@@ -29,7 +36,7 @@ namespace Web
 
                 return new HttpClient(customHandler)
                 {
-                    BaseAddress = new Uri("https://localhost:5001") // your API address
+                    BaseAddress = new Uri("https://localhost:7287") // your API address
                 };
             });
 

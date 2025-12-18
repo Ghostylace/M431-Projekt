@@ -54,14 +54,14 @@ public class AuthController : ControllerBase
     [Route("Login")]
     public async Task<ActionResult<AuthResponseDTO>> Login([FromBody] LoginRequestDTO login)
     {
-        TeacherDTO? existingUser = await _lehrerService.GetTeacherByEmail(login.Email);
+        List<TeacherDTO>? existingUser = await _lehrerService.GetTeacherByEmail(login.Email);
 
         if(existingUser == null)
         {
             return BadRequest("Failed to log in. Please check credentials");
         }
 
-        string jwtToken = GenerateJwtToken(existingUser);
+        string jwtToken = GenerateJwtToken(existingUser[0]);
         AuthResponseDTO toReturn = new AuthResponseDTO() { Token = jwtToken };
         return Ok(toReturn);
     }
