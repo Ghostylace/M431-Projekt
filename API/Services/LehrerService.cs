@@ -22,12 +22,11 @@ public class LehrerService : ILehrerService
     public async Task<List<TeacherDTO>?> GetAllTeachers()
     {
         ModeledResponse<Teacher> response = await _supabase.From<Teacher>().Get();
-        HttpResponseMessage? resp = response.ResponseMessage;
 
-        if (resp.IsSuccessStatusCode)
+        if (response.ResponseMessage.IsSuccessStatusCode)
         {
-            List<TeacherDTO> content = await resp.Content.ReadFromJsonAsync<List<TeacherDTO>>() ?? [];
-            return content;
+            List<TeacherDTO> outP = await ConvertList(response.Models);
+            return outP;
         }
         else
         {
@@ -35,15 +34,14 @@ public class LehrerService : ILehrerService
         }
     }
 
-    public async Task<TeacherDTO?> GetTeacherByEmail(string email)
+    public async Task<List<TeacherDTO>?> GetTeacherByEmail(string email)
     {
         ModeledResponse<Teacher> response = await _supabase.From<Teacher>().Filter("lehrperson.e_mail", Operator.Equals, $"{email}").Get();
-        HttpResponseMessage? resp = response.ResponseMessage;
 
-        if (resp.IsSuccessStatusCode)
+        if (response.ResponseMessage.IsSuccessStatusCode)
         {
-            TeacherDTO teacher = await resp.Content.ReadFromJsonAsync<TeacherDTO>() ?? new();
-            return teacher;
+            List<TeacherDTO> outP = await ConvertList(response.Models);
+            return outP;
         }
         else
         {
@@ -51,6 +49,33 @@ public class LehrerService : ILehrerService
         }
     }
     
+    private async Task<List<TeacherDTO>> ConvertList(List<Teacher> input)
+    {
+        List<TeacherDTO> toReturn = [];
+
+        foreach(var teacher in input)
+        {
+            toReturn.Add(new TeacherDTO()
+            {
+                Id = teacher.Id,
+                Vorname = teacher.Vorname,
+                Nachname = teacher.Nachname,
+                Email = teacher.Email,
+            });
+        }
+        return toReturn;
+    }
+
+    private async Task<TeacherDTO> ConvertSingle(Teacher input)
+    {
+        return new TeacherDTO()
+        {
+            Id = input.Id,
+            Vorname = input.Vorname,
+            Nachname = input.Nachname,
+            Email = input.Email,
+        };
+    }
 
     //public async Task<List<TeacherDTO>?> AddTeacher(Teacher teacher)
     //{
