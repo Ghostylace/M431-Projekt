@@ -1,4 +1,4 @@
-﻿using API.Modelsn;
+﻿using API.Models;
 using API.Services.Interfaces;
 using Shared.DTOs;
 using Supabase;
