@@ -1,7 +1,7 @@
 ﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
-namespace API.Modelsn;
+namespace API.Models;
 
 [Table("NOTENANPASSUNG_ANTRAG")]
 public class GradeAdjustment : BaseModel
