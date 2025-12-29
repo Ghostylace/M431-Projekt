@@ -4,5 +4,5 @@ namespace Web.Services.Interfaces;
 
 public interface ITest
 {
-    Task<List<TeacherDTO>> GetTeachersAsync();
+    Task<List<TeacherDTO>?> GetTeachersAsync();
 }

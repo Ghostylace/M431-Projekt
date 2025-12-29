@@ -1,4 +1,4 @@
-﻿using API.Modelsn;
+﻿using API.Models;
 using API.Services.Abstract;
 using Shared.DTOs;
 using Supabase;
@@ -16,7 +16,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<GradeAdjustment> CreateAsync(CreateGradeAdjustmentRequest request)
     {
-        var entity = new GradeAdjustment
+        GradeAdjustment entity = new GradeAdjustment
         {
             TeacherId = request.TeacherId,
             ProrectorId = request.ProrectorId,
@@ -29,7 +29,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             CreatedAt = DateTime.UtcNow
         };
 
-        var result = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> result = await _supabase
             .From<GradeAdjustment>()
             .Insert(entity);
 
@@ -38,17 +38,15 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<List<GradeAdjustment>> GetAllAsync()
     {
-        var response = await _supabase
-            .From<GradeAdjustment>()
-            .Select("*")
-            .Get();
+        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
+            .From<GradeAdjustment>().Get();
 
         return response.Models;
     }
 
     public async Task UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        var updateEntity = new GradeAdjustment
+        GradeAdjustment updateEntity = new GradeAdjustment
         {
             Id = id,
             Status = request.Status,

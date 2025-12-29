@@ -1,5 +1,4 @@
 using API.Services;
-using API.Services.Abstract;
 using Supabase;
 
 namespace API;
@@ -45,9 +44,8 @@ public class Program
                 }
             );
         });
-        builder.Services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {

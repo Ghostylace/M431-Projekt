@@ -3,7 +3,7 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("NOTENANPASSUNG_ANTRAG")]
+[Table("notenanpassung_antrag")]
 public class GradeAdjustment : BaseModel
 {
     [PrimaryKey("AntragID")]

@@ -10,7 +10,7 @@ namespace API.Services;
 public class LehrerService : ILehrerService
 {
     private readonly Client _supabase;
-    
+
 
     public LehrerService(Client supabase)
     {
@@ -52,7 +52,7 @@ public class LehrerService : ILehrerService
     {
         List<TeacherDTO> toReturn = [];
 
-        foreach(var teacher in input)
+        foreach(Teacher teacher in input)
         {
             toReturn.Add(new TeacherDTO()
             {

@@ -13,8 +13,8 @@ public class Test : ITest
         _httpClient = httpClient;
     }
 
-    public async Task<List<TeacherDTO>> GetTeachersAsync() 
+    public async Task<List<TeacherDTO>?> GetTeachersAsync() 
     {
-        return await _httpClient.GetFromJsonAsync<List<TeacherDTO>>("/api/Lehrer");
+        return await _httpClient.GetFromJsonAsync<List<TeacherDTO>>("/api/Teacher");
     }
 }

@@ -18,14 +18,14 @@ public class GradeAdjustmentController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateGradeAdjustmentRequest request)
     {
-        var result = await _service.CreateAsync(request);
+        Models.GradeAdjustment result = await _service.CreateAsync(request);
         return Ok(result);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _service.GetAllAsync();
+        List<Models.GradeAdjustment> result = await _service.GetAllAsync();
         return Ok(result);
     }
 

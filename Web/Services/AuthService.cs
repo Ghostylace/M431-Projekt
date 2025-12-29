@@ -28,7 +28,7 @@ namespace Web.Services
         /// <returns>Returns a DTO with the Login values</returns>
         public async Task<AuthResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO)
         {
-            var responseLogin = await _httpClient.PostAsJsonAsync($"api/Auth/Login", loginRequestDTO);
+            HttpResponseMessage responseLogin = await _httpClient.PostAsJsonAsync($"api/Auth/Login", loginRequestDTO);
 
             if (responseLogin.IsSuccessStatusCode)
             {
