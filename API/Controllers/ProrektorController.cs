@@ -5,26 +5,18 @@ using Shared.DTOs.Prorektor;
 namespace API.Controllers;
 
 [ApiController]
-[Route("api/[Controller]")]
-public class ProrektorController : ControllerBase
+[Route("api/prorectors")]
+public class ProrectorsController : ControllerBase
 {
-    private readonly IProrektorService _prorektorService;
+    private readonly IProrectorService _service;
 
-    public ProrektorController(IProrektorService prorektorService)
+    public ProrectorsController(IProrectorService service)
     {
-        _prorektorService = prorektorService;
+        _service = service;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ProrektorDTO>?>> GetAll()
-    {
-        List<ProrektorDTO>? result = await _prorektorService.GetAll();
-
-        if(result == null)
-        {
-            return BadRequest("Something went wrong while getting shi");
-        }
-
-        return Ok(result);
-    }
+    public async Task<IActionResult> Get()
+        => Ok(await _service.GetAllAsync());
 }
+

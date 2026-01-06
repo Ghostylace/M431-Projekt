@@ -9,36 +9,19 @@ public class GradeAdjustment : BaseModel
     [PrimaryKey("AntragID")]
     public int Id { get; set; }
 
-    [Column("LehrpersonID")]
-    public int TeacherId { get; set; }
+    public int LehrpersonID { get; set; }
+    public int ProrektorID { get; set; }
+    public int LernenderID { get; set; }
+    public int ModulID { get; set; }
 
-    [Column("ProrektorID")]
-    public int ProrectorId { get; set; }
+    public decimal? AlteNote { get; set; }
+    public decimal NeueNote { get; set; }
 
-    [Column("LernenderID")]
-    public int StudentId { get; set; }
+    public DateTime Antragsdatum { get; set; }
+    public string? Bemerkungen { get; set; }
 
-    [Column("ModulID")]
-    public int ModuleId { get; set; }
-
-    [Column("AlteNote")]
-    public decimal? OldGrade { get; set; }
-
-    [Column("NeueNote")]
-    public decimal NewGrade { get; set; }
-
-    [Column("Antragsdatum")]
-    public DateTime CreatedAt { get; set; }
-
-    [Column("Bemerkungen")]
-    public string? Remarks { get; set; }
-
-    [Column("Status")]
-    public string Status { get; set; }
-
-    [Column("Pruefungsdatum")]
-    public DateTime? ReviewedAt { get; set; }
-
-    [Column("Ablehnungsgrund")]
-    public string? RejectionReason { get; set; }
+    public string Status { get; set; } = "EINGEREICHT";
+    public DateTime? Pruefungsdatum { get; set; }
+    public string? Ablehnungsgrund { get; set; }
 }
+

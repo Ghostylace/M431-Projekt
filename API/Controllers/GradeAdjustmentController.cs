@@ -1,33 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shared.DTOs;
 using API.Services.Abstract;
+using Shared.DTOs.GradAdjustment;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("api/grade-adjustments")]
-public class GradeAdjustmentController : ControllerBase
+public class GradeAdjustmentsController : ControllerBase
 {
     private readonly IGradeAdjustmentService _service;
 
-    public GradeAdjustmentController(IGradeAdjustmentService service)
+    public GradeAdjustmentsController(IGradeAdjustmentService service)
     {
         _service = service;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get()
+        => Ok(await _service.GetAllAsync());
+
     [HttpPost]
     public async Task<IActionResult> Create(CreateGradeAdjustmentRequest request)
-    {
-        Models.GradeAdjustment result = await _service.CreateAsync(request);
-        return Ok(result);
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        List<Models.GradeAdjustment> result = await _service.GetAllAsync();
-        return Ok(result);
-    }
+        => Ok(await _service.CreateAsync(request));
 
     [HttpPut("{id}/status")]
     public async Task<IActionResult> UpdateStatus(
@@ -35,6 +29,6 @@ public class GradeAdjustmentController : ControllerBase
         UpdateGradeAdjustmentStatusRequest request)
     {
         await _service.UpdateStatusAsync(id, request);
-        return Ok();
+        return NoContent();
     }
 }

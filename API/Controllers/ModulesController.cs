@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("api/teachers")]
-public class TeachersController : ControllerBase
+[Route("api/modules")]
+public class ModulesController : ControllerBase
 {
-    private readonly ITeacherService _service;
+    private readonly IModuleService _service;
 
-    public TeachersController(ITeacherService service)
+    public ModulesController(IModuleService service)
     {
         _service = service;
     }

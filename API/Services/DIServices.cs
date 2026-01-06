@@ -6,9 +6,9 @@ public static class DIServices
 {
     public static IServiceCollection AddServiceLayer(this IServiceCollection services)
     {
-        services.AddScoped<ILehrerService, LehrerService>();
+        services.AddScoped<ITeacherService, TeacherService>();
         services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
-        services.AddScoped<IProrektorService, ProrektorService>();
+        services.AddScoped<IProrectorService, ProrectorService>();
 
         return services;
     }

@@ -3,19 +3,13 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("prorektorat")]
-public class Prorector : BaseModel
+[Table("lernender")]
+public class Student : BaseModel
 {
-    [PrimaryKey("ProrektorID")]
+    [PrimaryKey("LernenderID")]
     public int Id { get; set; }
 
     public string Vorname { get; set; } = string.Empty;
     public string Nachname { get; set; } = string.Empty;
-
-    [Column("E_Mail")]
-    public string Email { get; set; } = string.Empty;
-
-    public string PasswordHash { get; set; } = string.Empty;
-
+    public string Klasse { get; set; } = string.Empty;
 }
-

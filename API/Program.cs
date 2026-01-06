@@ -1,4 +1,5 @@
 using API.Services;
+using API.Services.Abstract;
 using Supabase;
 
 namespace API;
@@ -15,6 +16,16 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
+        builder.Services.AddScoped<ITeacherService, TeacherService>();
+        builder.Services.AddScoped<IStudentService, StudentService>();
+        builder.Services.AddScoped<IModuleService, ModuleService>();
+        builder.Services.AddScoped<IProrectorService, ProrectorService>();
+        builder.Services.AddScoped<IAuthService, AuthService>();
+
+
+
 
         // CORS konfigurieren
         builder.Services.AddCors(options =>

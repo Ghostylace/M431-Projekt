@@ -1,67 +1,36 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using API.Configuration;
-using API.Services.Abstract;
+﻿using API.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Shared.DTOs.Auth;
-using Shared.DTOs.Teacher;
 
 namespace API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly ILehrerService _lehrerService;
-    private readonly JwtConfig _jwtConfig;
+    private readonly IAuthService _authService;
 
-    public AuthController(ILehrerService lehrerService, IOptionsMonitor<JwtConfig> optionsMonitor)
+    public AuthController(IAuthService authService)
     {
-        _lehrerService = lehrerService;
-        _jwtConfig = optionsMonitor.CurrentValue;
-    }
-    private string GenerateJwtToken(TeacherDTO user)
-    {
-        JwtSecurityTokenHandler jwtTokenHandler = new JwtSecurityTokenHandler();
-
-        byte[] key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
-
-        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim("Id", user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            }),
-            Expires = DateTime.UtcNow.AddHours(6),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
-        };
-
-        SecurityToken token = jwtTokenHandler.CreateToken(tokenDescriptor);
-
-        string jwtToken = jwtTokenHandler.WriteToken(token);
-
-        return jwtToken;
+        _authService = authService;
     }
 
-    [HttpPost]
-    [Route("Login")]
-    public async Task<ActionResult<AuthResponseDTO>> Login([FromBody] LoginRequestDTO login)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        List<TeacherDTO>? existingUser = await _lehrerService.GetTeacherByEmail(login.Email);
-
-        if(existingUser == null)
+        try
         {
-            return BadRequest("Failed to log in. Please check credentials");
+            return Ok(await _authService.LoginAsync(request));
         }
-
-        string jwtToken = GenerateJwtToken(existingUser[0]);
-        AuthResponseDTO toReturn = new AuthResponseDTO() { Token = jwtToken };
-        return Ok(toReturn);
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
+    }
+    [HttpPost("change-password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+        await _authService.ChangePasswordAsync(request);
+        return Ok(new { message = "Password changed successfully" });
     }
 }

@@ -1,20 +1,26 @@
 ﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 
-namespace API.Models;
-
-[Table("lehrperson")]
-public class Teacher : BaseModel
+namespace API.Models
 {
-    [PrimaryKey("id")]
-    public int Id { get; set; }
+    [Table("lehrperson")]
+    public class Teacher : BaseModel
+    {
+        [PrimaryKey("lehrpersonid")]
+        public int Id { get; set; }
 
-    [Column("vorname")]
-    public string Vorname { get; set; } = string.Empty;
+        [Column("e_mail")]
+        public string Email { get; set; } = null!;
 
-    [Column("nachname")]
-    public string Nachname { get; set; } = string.Empty;
+        [Column("passwordhash")]
+        public string PasswordHash { get; set; } = null!;
 
-    [Column("e_mail")]
-    public string Email { get; set; } = string.Empty;
+        [Column("mustchangepassword")]
+        public bool MustChangePassword { get; set; }
+
+        [Column("passwordchangedat")]
+        public DateTime? PasswordChangedAt { get; set; }
+        public string LastName { get; internal set; }
+        public string FirstName { get; internal set; }
+    }
 }

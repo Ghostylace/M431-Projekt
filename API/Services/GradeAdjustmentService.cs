@@ -1,6 +1,6 @@
 ﻿using API.Models;
 using API.Services.Abstract;
-using Shared.DTOs;
+using Shared.DTOs.GradAdjustment;
 using Supabase;
 
 namespace API.Services;
@@ -16,20 +16,18 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<GradeAdjustment> CreateAsync(CreateGradeAdjustmentRequest request)
     {
-        GradeAdjustment entity = new GradeAdjustment
+        var entity = new GradeAdjustment
         {
-            TeacherId = request.TeacherId,
-            ProrectorId = request.ProrectorId,
-            StudentId = request.StudentId,
-            ModuleId = request.ModuleId,
-            OldGrade = request.OldGrade,
-            NewGrade = request.NewGrade,
-            Remarks = request.Remarks,
-            Status = "EINGEREICHT",
-            CreatedAt = DateTime.UtcNow
+            LehrpersonID = request.TeacherId,
+            ProrektorID = request.ProrectorId,
+            LernenderID = request.StudentId,
+            ModulID = request.ModuleId,
+            AlteNote = request.OldGrade,
+            NeueNote = request.NewGrade,
+            Bemerkungen = request.Remarks
         };
 
-        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> result = await _supabase
+        var result = await _supabase
             .From<GradeAdjustment>()
             .Insert(entity);
 
@@ -38,26 +36,31 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<List<GradeAdjustment>> GetAllAsync()
     {
-        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
-            .From<GradeAdjustment>().Get();
+        var response = await _supabase
+            .From<GradeAdjustment>()
+            .Get();
 
         return response.Models;
     }
 
     public async Task UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        GradeAdjustment updateEntity = new GradeAdjustment
-        {
-            Id = id,
-            Status = request.Status,
-            RejectionReason = request.RejectionReason,
-            ReviewedAt = DateTime.UtcNow
-        };
+        var response = await _supabase
+            .From<GradeAdjustment>()
+            .Where(x => x.Id == id)
+            .Get();
+
+        var entity = response.Models.FirstOrDefault();
+        if (entity == null)
+            throw new KeyNotFoundException();
+
+        entity.Status = request.Status;
+        entity.Ablehnungsgrund = request.RejectionReason;
+        entity.Pruefungsdatum = DateTime.UtcNow;
 
         await _supabase
             .From<GradeAdjustment>()
-            .Where(x => x.Id == id)
-            .Update(updateEntity);
+            .Update(entity);
     }
-
 }
+

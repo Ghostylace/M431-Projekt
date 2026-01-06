@@ -1,50 +1,32 @@
-﻿using System.Threading.Tasks;
-using API.Models;
+﻿using API.Models;
 using API.Services.Abstract;
-using Shared.DTOs.Prorektor;
+using Shared.DTOs;
 using Supabase;
 
 namespace API.Services;
 
-public class ProrektorService : IProrektorService
+public class ProrectorService : IProrectorService
 {
     private readonly Client _supabase;
 
-    public ProrektorService(Client supabase)
+    public ProrectorService(Client supabase)
     {
         _supabase = supabase;
     }
 
-    public async Task<List<ProrektorDTO>?> GetAll()
+    public async Task<List<LookupDto>> GetAllAsync()
     {
-        var response = await _supabase.From<Prorektor>().Get();
+        var response = await _supabase
+            .From<Prorector>()
+            .Get();
 
-        if (response.ResponseMessage.IsSuccessStatusCode)
-        {
-            List<ProrektorDTO> outList = await ConvertList(response.Models);
-            return outList;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    private async Task<List<ProrektorDTO>> ConvertList(List<Prorektor> input)
-    {
-        List<ProrektorDTO> outList = [];
-
-        foreach(var p in input)
-        {
-            outList.Add(new ProrektorDTO()
+        return response.Models
+            .Select(p => new LookupDto
             {
                 Id = p.Id,
-                Vorname = p.Vorname,
-                Nachname = p.Nachname,
-                Email = p.Email
-            });
-        }
-
-        return outList;
+                DisplayName = $"{p.Vorname} {p.Nachname}"
+            })
+            .OrderBy(x => x.DisplayName)
+            .ToList();
     }
 }

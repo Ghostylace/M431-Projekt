@@ -1,8 +1,10 @@
-﻿using Shared.DTOs.Prorektor;
+﻿using Shared.DTOs;
+using Shared.DTOs.Prorektor;
 
 namespace API.Services.Abstract;
 
-public interface IProrektorService
+public interface IProrectorService
 {
-    Task<List<ProrektorDTO>> GetAll();
+    Task<List<LookupDto>> GetAllAsync();
 }
+

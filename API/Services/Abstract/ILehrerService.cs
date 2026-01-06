@@ -1,10 +1,8 @@
-﻿using Shared.DTOs.Teacher;
+﻿using Shared.DTOs;
 
-namespace API.Services.Abstract
+namespace API.Services.Abstract;
+
+public interface ITeacherService
 {
-    public interface ILehrerService
-    {
-        Task<List<TeacherDTO>?> GetAllTeachers();
-        Task<List<TeacherDTO>?> GetTeacherByEmail(string email);
-    }
+    Task<List<LookupDto>> GetAllAsync();
 }
