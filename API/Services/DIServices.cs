@@ -9,6 +9,12 @@ public static class DIServices
         services.AddScoped<ITeacherService, TeacherService>();
         services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
         services.AddScoped<IProrectorService, ProrectorService>();
+        services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
+        services.AddScoped<ITeacherService, TeacherService>();
+        services.AddScoped<IStudentService, StudentService>();
+        services.AddScoped<IModuleService, ModuleService>();
+        services.AddScoped<IProrectorService, ProrectorService>();
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

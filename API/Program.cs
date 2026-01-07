@@ -17,16 +17,6 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddScoped<IGradeAdjustmentService, GradeAdjustmentService>();
-        builder.Services.AddScoped<ITeacherService, TeacherService>();
-        builder.Services.AddScoped<IStudentService, StudentService>();
-        builder.Services.AddScoped<IModuleService, ModuleService>();
-        builder.Services.AddScoped<IProrectorService, ProrectorService>();
-        builder.Services.AddScoped<IAuthService, AuthService>();
-
-
-
-
         // CORS konfigurieren
         builder.Services.AddCors(options =>
         {
