@@ -1,6 +1,4 @@
-﻿using Shared.DTOs.Auth;
-
-namespace Web.Services.Interfaces
+﻿namespace Web.Services.Interfaces
 {
     public interface IAuthService
     {
