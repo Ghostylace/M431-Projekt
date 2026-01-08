@@ -26,13 +26,13 @@ namespace Web.Services
         /// </summary>
         /// <param name="loginRequestDTO">The login request dto.</param>
         /// <returns>Returns a DTO with the Login values</returns>
-        public async Task<AuthResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO)
+        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequestDTO)
         {
             HttpResponseMessage responseLogin = await _httpClient.PostAsJsonAsync($"api/Auth/Login", loginRequestDTO);
 
             if (responseLogin.IsSuccessStatusCode)
             {
-                return await responseLogin.Content.ReadFromJsonAsync<AuthResponseDTO>();
+                return await responseLogin.Content.ReadFromJsonAsync<LoginResponse>();
             }
             return null;
         }
