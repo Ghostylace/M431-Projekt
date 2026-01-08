@@ -1,5 +1,4 @@
 using API.Services;
-using API.Services.Abstract;
 using Supabase;
 
 namespace API;

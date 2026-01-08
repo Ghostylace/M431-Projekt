@@ -1,6 +1,5 @@
 ﻿using API.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DTOs.Prorektor;
 
 namespace API.Controllers;
 
