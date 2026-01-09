@@ -9,12 +9,16 @@ public class Prorector : BaseModel
     [PrimaryKey("ProrektorID")]
     public int Id { get; set; }
 
-    public string Vorname { get; set; } = string.Empty;
-    public string Nachname { get; set; } = string.Empty;
+    [Column("Firstname")]
+    public string Firstname { get; set; } = string.Empty;
+
+    [Column("Lastname")]
+    public string Lastname{ get; set; } = string.Empty;
 
     [Column("E_Mail")]
     public string Email { get; set; } = string.Empty;
 
+    [Column("Passwordhash")]
     public string PasswordHash { get; set; } = string.Empty;
 
 }

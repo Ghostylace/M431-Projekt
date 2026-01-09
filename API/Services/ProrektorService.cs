@@ -24,7 +24,7 @@ public class ProrectorService : IProrectorService
             .Select(p => new LookupDto
             {
                 Id = p.Id,
-                DisplayName = $"{p.Vorname} {p.Nachname}"
+                DisplayName = $"{p.Firstname} {p.Lastname}"
             })
             .OrderBy(x => x.DisplayName)
             .ToList();

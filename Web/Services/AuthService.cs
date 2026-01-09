@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Shared.DTOs.Auth;
 using Web.Services.Interfaces;
 
 namespace Web.Services
@@ -25,7 +26,7 @@ namespace Web.Services
         /// </summary>
         /// <param name="loginRequestDTO">The login request dto.</param>
         /// <returns>Returns a DTO with the Login values</returns>
-        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequestDTO)
+        public async Task<LoginResponse?> LoginAsync(LoginRequest loginRequestDTO)
         {
             HttpResponseMessage responseLogin = await _httpClient.PostAsJsonAsync($"api/Auth/Login", loginRequestDTO);
 

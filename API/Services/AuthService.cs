@@ -1,5 +1,9 @@
-﻿using API.Models;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using API.Models;
 using API.Services.Abstract;
+using Microsoft.IdentityModel.Tokens;
 using Shared.DTOs.Auth;
 using Supabase;
 
@@ -8,10 +12,12 @@ namespace API.Services;
 public class AuthService : IAuthService
 {
     private readonly Client _supabase;
+    private readonly IConfiguration _config;
 
-    public AuthService(Client supabase)
+    public AuthService(Client supabase, IConfiguration config)
     {
         _supabase = supabase;
+        _config = config;
     }
 
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
@@ -29,10 +35,12 @@ public class AuthService : IAuthService
             if (!PasswordHasher.Verify(request.Password, teacher.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid password");
 
+            string jwtToken = GenerateJwtTokenTeacher(teacher);
             return new LoginResponse
             {
                 UserId = teacher.Id,
-                Role = "teacher"
+                Role = "teacher",
+                JwtToken = jwtToken
             };
         }
 
@@ -49,10 +57,12 @@ public class AuthService : IAuthService
             if (!PasswordHasher.Verify(request.Password, prorector.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid password");
 
+            string jwtToken = GenerateJwtTokenProrector(prorector);
             return new LoginResponse
             {
                 UserId = prorector.Id,
-                Role = "prorector"
+                Role = "prorector",
+                JwtToken = jwtToken
             };
         }
 
@@ -80,5 +90,63 @@ public class AuthService : IAuthService
         await _supabase
             .From<Teacher>()
             .Update(teacher);
+    }
+
+    private string GenerateJwtTokenTeacher(Teacher user)
+    {
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+        byte[] key = Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? "a");
+
+        Claim[] claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Name, $"{user.FirstName} {user.LastName}")
+        };
+
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddHours(3),
+            Issuer = _config["Jwt:Issuer"],
+            Audience = _config["Jwt:Audience"],
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature
+                )
+        };
+
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
+    }
+
+    private string GenerateJwtTokenProrector(Prorector user)
+    {
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+        byte[] key = Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? "a");
+
+        Claim[] claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtRegisteredClaimNames.Name, $"{user.Firstname} {user.Lastname}")
+        };
+
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddHours(3),
+            Issuer = _config["Jwt:Issuer"],
+            Audience = _config["Jwt:Audience"],
+            SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha256Signature
+                )
+        };
+
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
     }
 }
