@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Shared.DTOs.Auth;
 using Web.Services.Interfaces;
 
 namespace Web.Services
