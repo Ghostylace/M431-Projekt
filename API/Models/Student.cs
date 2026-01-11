@@ -3,7 +3,7 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("Student")]
+[Table("student")]
 public class Student : BaseModel
 {
     [PrimaryKey("StudentId")]

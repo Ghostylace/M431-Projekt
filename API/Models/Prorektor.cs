@@ -3,7 +3,7 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("Vice_Rectorate")]
+[Table("vice_Rectorate")]
 public class Prorector : BaseModel
 {
     [PrimaryKey("Vice_RectorateId")]
