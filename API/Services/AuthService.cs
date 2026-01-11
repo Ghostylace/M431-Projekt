@@ -84,8 +84,6 @@ public class AuthService : IAuthService
             throw new Exception("Old password is incorrect");
 
         teacher.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
-        teacher.MustChangePassword = false;
-        teacher.PasswordChangedAt = DateTime.UtcNow;
 
         await _supabase
             .From<Teacher>()

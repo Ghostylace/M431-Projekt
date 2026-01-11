@@ -3,13 +3,14 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("modul")]
+[Table("Module")]
 public class Module : BaseModel
 {
-    [PrimaryKey("ModulID")]
+    [PrimaryKey("ModuleId")]
     public int Id { get; set; }
-
+    [Column("Modulname")]
     public string Modulname { get; set; } = string.Empty;
+    [Column("Semester")]
     public int Semester { get; set; }
 }
 

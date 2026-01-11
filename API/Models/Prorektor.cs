@@ -3,10 +3,10 @@ using Supabase.Postgrest.Models;
 
 namespace API.Models;
 
-[Table("prorektorat")]
+[Table("Vice_Rectorate")]
 public class Prorector : BaseModel
 {
-    [PrimaryKey("ProrektorID")]
+    [PrimaryKey("Vice_RectorateId")]
     public int Id { get; set; }
 
     [Column("Firstname")]
@@ -18,7 +18,7 @@ public class Prorector : BaseModel
     [Column("E_Mail")]
     public string Email { get; set; } = string.Empty;
 
-    [Column("Passwordhash")]
+    [Column("PasswordHash")]
     public string PasswordHash { get; set; } = string.Empty;
 
 }
