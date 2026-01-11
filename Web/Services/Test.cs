@@ -15,6 +15,6 @@ public class Test : ITest
 
     public async Task<List<TeacherDTO>?> GetTeachersAsync() 
     {
-        return await _httpClient.GetFromJsonAsync<List<TeacherDTO>>("/api/Teacher");
+        return await _httpClient.GetFromJsonAsync<List<TeacherDTO>>("/api/teachers");
     }
 }

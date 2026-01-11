@@ -18,13 +18,13 @@ public class GradeAdjustmentService : IGradeAdjustmentService
     {
         var entity = new GradeAdjustment
         {
-            LehrpersonID = request.TeacherId,
-            ProrektorID = request.ProrectorId,
-            LernenderID = request.StudentId,
-            ModulID = request.ModuleId,
+            TeacherId = request.TeacherId,
+            Vise_RectorateId = request.ProrectorId,
+            StudentId = request.StudentId,
+            ModuleId = request.ModuleId,
             AlteNote = request.OldGrade,
             NeueNote = request.NewGrade,
-            Bemerkungen = request.Remarks
+            Description = request.Remarks
         };
 
         var result = await _supabase
@@ -55,8 +55,8 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             throw new KeyNotFoundException();
 
         entity.Status = request.Status;
-        entity.Ablehnungsgrund = request.RejectionReason;
-        entity.Pruefungsdatum = DateTime.UtcNow;
+        entity.RejectionReason = request.RejectionReason;
+        entity.Testdate = DateTime.UtcNow;
 
         await _supabase
             .From<GradeAdjustment>()
