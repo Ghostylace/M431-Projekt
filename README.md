@@ -3,6 +3,10 @@
 ## Cyril
 Ich habe das GitHub-Repository erstellt. Danach habe ich das Frontend- und Backend-Projekt erstellt und ein Shared-Projekt für die DTO-Ablage. 
 Ich schlug vor, die Datenbank auf Supabase aufzusetzen, damit nicht alle die Datenbank lokal installieren müssen.
+Ich habe Support für Prorektor und Lehrer erstellt und den Support von anderen angepasst.
+Ich habe den JWTToken Generator hinzugefügt und die nötigen Daten in die appsettings Datei eingefügt.
+Ich habe oft auch Bug fixes gemacht, damit das Projekt auch starten konnte.
+Ich werde noch den Support für alle Tabellen verbessern und Exception handling hinzufügen.
 
 ## Nelio
 Ich habe die Datenbank erstellt. Zuerst in MySQL und nach einer Besprechung haben wir uns darauf geeinigt, dass wir es auf PostgreSQL ändern und die Datenbank über Supabase hosten. Wir trafen diese Entscheidung, da wir Supabase gerade im ÜK bearbeiteten und MySQL eine eher schwierigere SQL-Sprache ist. Zudem können wir mit Supabase alle unsere DB anpassen und einsehen.
