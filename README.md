@@ -5,7 +5,9 @@ Ich habe das GitHub-Repository erstellt. Danach habe ich das Frontend- und Backe
 Ich schlug vor, die Datenbank auf Supabase aufzusetzen, damit nicht alle die Datenbank lokal installieren müssen.
 Ich habe Support für Prorektor und Lehrer erstellt und den Support von anderen angepasst.
 Ich habe den JWTToken Generator hinzugefügt und die nötigen Daten in die appsettings Datei eingefügt.
+Ich musste zwei separate JWTToken Generatoren erstellen, weil der Anmelde Controller zwei verschiedene Anmeldetypen zurückgibt.
 Ich habe oft auch Bug fixes gemacht, damit das Projekt auch starten konnte.
+Bei den meisten Models musste ich die Properties auf die DB anpassen.
 Ich werde noch den Support für alle Tabellen verbessern und Exception handling hinzufügen.
 
 ## Nelio
