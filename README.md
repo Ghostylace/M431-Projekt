@@ -9,7 +9,20 @@ Ich habe oft auch Bug fixes gemacht, damit das Projekt auch starten konnte.
 Ich werde noch den Support für alle Tabellen verbessern und Exception handling hinzufügen.
 
 ## Nelio
-Ich habe die Datenbank erstellt. Zuerst in MySQL und nach einer Besprechung haben wir uns darauf geeinigt, dass wir es auf PostgreSQL ändern und die Datenbank über Supabase hosten. Wir trafen diese Entscheidung, da wir Supabase gerade im ÜK bearbeiteten und MySQL eine eher schwierigere SQL-Sprache ist. Zudem können wir mit Supabase alle unsere DB anpassen und einsehen.
+Ich habe die Datenbank erstellt. Zuerst in MySQL und nach einer Besprechung haben wir uns darauf geeinigt, dass wir es auf PostgreSQL ändern und die Datenbank über Supabase hosten. Wir trafen diese Entscheidung, da wir Supabase gerade im ÜK bearbeiteten und MySQL eine eher schwierigere SQL Sprache ist. Zudem können wir mit Supabase alle unsere DB anpassen und einsehen. Danach habe ich eingerichtet das wir vom Backend auf die Db zugreifen können und somit Daten speichern und auslesen. Dazwischen habe ich noch kurz das Codecks überarbeitet alle packete die bereits erledig wurden abgeschlossen und bei bedarf bearbeitet. Danach haben wir einen Projektplan erstellt damit wir genau wissen an was wir arbeiten müssen und wie das ganze system aufgebaut ist genau damit die koordination besser ist und wir ein richtiges ziel vor augen haben. Nach einer gewissen Zeit haben wir gemerkt das wir keie einheitlichen Coding Guidlines haben und alle File usw. etwas anders bennen en deshalb haben wir Coding guidlines festgelegt für eine gute zusammenarbeit. Dazu haben wir noch Branches erstellt damit wir nicht ausversehen uns gegenseitig in den weg kommen oder ein nicht funktionierendes main haben. Anschliessend habe ich noch die Db überarbeitet da es da noch deutsche begriffe drin hatte. Dann habe ich das backend noch weiter gemacht damit weitere sachen gehen.
+
+sql db erstellt
+geändert auf postgressql
+verbindung db mit backend
+codeecks überarbeitung 
+backend dto und modells erstellt 
+backend codingguidlines überarbeitet und files angepasst
+branches erstellt
+db überarbeitet auf englisch
+codecks überarbeitung
+backend support erweitert
+
+
 
 ## Nevio
 Meine Aufgabe war es, das Mockup zu erstellen. Ich hatte die Idee, das Mockup wie mit Blazor zu machen: mit einer Seitennavigation. Ich machte eine Ansicht für die Lehrpersonen und eine für die Prorektoren. Die Lehrer sollten sich mit der 2FA anmelden können und Noten hinzufügen können. Der Prorektor kann diese Noten besichtigen und annehmen oder ablehnen. Es dauerte eine Weile, aber es kam auch gut heraus. Nun bin ich für die Dokumentation zuständig und helfe im Frontend mit.
