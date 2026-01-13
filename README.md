@@ -18,7 +18,7 @@ Meine Aufgabe war es, das Mockup zu erstellen. Ich hatte die Idee, das Mockup wi
 ## Emanuel
 Ich habe im Codedecks meine Arbeiten erstellt. Ich habe die Nutzwerkanalyse für unser Team erstellt mit Nelio.
 Ich habe bereits das normale HTML für das Register und Login erstellt, damit ich es nur noch mit der Datenbank verbinden muss.
-Ich hab dann noch alle restlichen Pages welche wir für das Projekt brauchen erstellt und dazu das normal HTML mit Bootstrap erstellt.
+Ich hab dann noch alle restlichen Pages welche wir für das Projekt brauchen erstellt und dazu das normal HTML mit Bootstrap erstellt. Dann hab ich mit einem GET von den Lehrern der GIBZ einen Durchbruch erstellt das wir wussten das es funktioniert mit der DB zu verbinden
 Über die Ferien und dann die erste Woche konnte ich nichts machen da die API immer probleme hatte oder nie fertig gemacht wurde. Es wurden immer nur verschiedene GET erstellt welche ich nicht weis was ich damit machen sollte.
 
 Codecks Link: `https://slowkob.codecks.io`
