@@ -6,43 +6,43 @@ namespace API.Models;
 [Table("gradadjustment")]
 public class GradeAdjustment : BaseModel
 {
-    [PrimaryKey("AntragID")]
+    [PrimaryKey("antragid")]
     public int Id { get; set; }
 
-    [Column("TeacherId")]
+    [Column("teacherid")]
     public int TeacherId { get; set; }
 
-    [Column("Vise_RectorateId")]
+    [Column("vise_rectorateid")]
     public int Vise_RectorateId { get; set; }
 
-    [Column("StudentId")]
+    [Column("studentid")]
     public int StudentId { get; set; }
 
-    [Column("ModuleId")]
+    [Column("moduleid")]
     public int ModuleId { get; set; }
 
-    [Column("Grade")]
+    [Column("grade")]
     public decimal? AlteNote { get; set; }
 
-    [Column("NeueNote")]
+    [Column("neuenote")]
     public decimal NeueNote { get; set; }
 
-    [Column("CreationDate")]
+    [Column("creationdate")]
     public DateTime Antragsdatum { get; set; }
 
-    [Column("Description")]
+    [Column("description")]
     public string? Description { get; set; }
 
-    [Column("Delayed")]
+    [Column("delayed")]
     public bool IsDelayed { get; set; }
 
-    [Column("Status")]
+    [Column("status")]
     public string Status { get; set; } = "EINGEREICHT";
 
-    [Column("Testdate")]
+    [Column("testdate")]
     public DateTime? Testdate { get; set; }
 
-    [Column("RejectionReason")]
+    [Column("rejectionreason")]
     public string? RejectionReason { get; set; }
 }
 
