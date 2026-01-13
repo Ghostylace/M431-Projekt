@@ -1,4 +1,4 @@
-# Dokumentation
+# Dokumentation Arbeitsschritte von jeder Person
 
 ## Cyril
 Ich habe das GitHub-Repository erstellt. Danach habe ich das Frontend- und Backend-Projekt erstellt und ein Shared-Projekt für die DTO-Ablage. 
