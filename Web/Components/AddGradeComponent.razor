@@ -18,20 +18,40 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="studentName" class="form-label">Name des Schülers</label>
-                        <input type="text" class="form-control" id="studentName">
+                        <label for="studentId" class="form-label">Name des Schülers</label>
+                        <select class="form-select" id="studentId" @bind="@NewGrade.StudentId">
+                            @foreach (var b in students)
+                            {
+                                <option value="@b.Id">@b.FullName</option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="teacherName" class="form-label">Name der Lehrperson</label>
-                        <input type="text" class="form-control" id="teacherName">
+                        <label for="teacherId" class="form-label">Name der Lehrperson</label>
+                        <select class="form-select" id="teacherId" @bind="@NewGrade.StudentId">
+                            @foreach (var b in teachers)
+                            {
+                                <option value="@b.Id">(@b.Vorname @b.Nachname)</option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="principalName" class="form-label">Name des Rektors</label>
-                        <input type="text" class="form-control" id="principalName">
+                        <select class="form-select" id="studentId" @bind="@NewGrade.StudentId">
+                            @foreach (var b in vices)
+                            {
+                                <option value="@b.Id">(@b.Vorname @b.Nachname)</option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="module" class="form-label">Modul</label>
-                        <input type="text" class="form-control" id="module">
+                        <select class="form-select" id="studentId" @bind="@NewGrade.StudentId">
+                            @foreach (var b in modules)
+                            {
+                                <option value="@b.Id">@b.Name</option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="examDate" class="form-label">Datum der Prüfung</label>
@@ -39,7 +59,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="grade" class="form-label">Note</label>
-                        <input type="text" class="form-control" id="grade">
+                        <input type="number" class="form-control" id="grade">
                     </div>
                     <div class="mb-3">
                         <label for="late" class="form-label">Verspätet?</label>

@@ -16,7 +16,7 @@ public class StudentService : IStudentService
 
     public async Task<List<StudentListDto>> GetAllAsync()
     {
-        var response = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<Student> response = await _supabase
             .From<Student>()
             .Get();
 

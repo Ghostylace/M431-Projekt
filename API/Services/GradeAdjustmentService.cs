@@ -16,7 +16,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<GradeAdjustment> CreateAsync(CreateGradeAdjustmentRequest request)
     {
-        var entity = new GradeAdjustment
+        GradeAdjustment entity = new GradeAdjustment
         {
             TeacherId = request.TeacherId,
             Vise_RectorateId = request.ProrectorId,
@@ -27,7 +27,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             Description = request.Remarks
         };
 
-        var result = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> result = await _supabase
             .From<GradeAdjustment>()
             .Insert(entity);
 
@@ -36,7 +36,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<List<GradeAdjustment>> GetAllAsync()
     {
-        var response = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
             .From<GradeAdjustment>()
             .Get();
 
@@ -45,12 +45,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        var response = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
             .From<GradeAdjustment>()
             .Where(x => x.Id == id)
             .Get();
 
-        var entity = response.Models.FirstOrDefault();
+        GradeAdjustment? entity = response.Models.FirstOrDefault();
         if (entity == null)
             throw new KeyNotFoundException();
 

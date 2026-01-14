@@ -22,7 +22,11 @@ namespace Web
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped<ITest, Test>();
-
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITeacherService, TeacherService>();
+            builder.Services.AddScoped<IModuleService, ModuleService>();
+            builder.Services.AddScoped<IVice_RectorateService, Vice_RectorateService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
 
 
 

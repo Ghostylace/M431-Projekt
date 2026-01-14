@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using API.Models;
 using API.Services.Abstract;
@@ -23,16 +24,17 @@ public class AuthService : IAuthService
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         // 1️⃣ Teacher prüfen
-        var teacherResponse = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<Teacher> teacherResponse = await _supabase
             .From<Teacher>()
             .Where(t => t.Email == request.Email)
             .Get();
 
-        var teacher = teacherResponse.Models.FirstOrDefault();
+        Teacher? teacher = teacherResponse.Models.FirstOrDefault();
 
         if (teacher != null)
         {
-            if (!PasswordHasher.Verify(request.Password, teacher.PasswordHash))
+            //teacher.Salt = Convert.ToBase64String(RandomNumberGenerator.GetBytes(128));
+            if (!PasswordHasher.Verify(request.Password, teacher.Salt, teacher.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid password");
 
             string jwtToken = GenerateJwtTokenTeacher(teacher);
@@ -45,37 +47,37 @@ public class AuthService : IAuthService
         }
 
         // 2️⃣ Prorector prüfen
-        var prorectorResponse = await _supabase
-            .From<Prorector>()
-            .Where(p => p.Email == request.Email)
-            .Get();
+        //var prorectorResponse = await _supabase
+        //    .From<Prorector>()
+        //    .Where(p => p.Email == request.Email)
+        //    .Get();
 
-        var prorector = prorectorResponse.Models.FirstOrDefault();
+        //var prorector = prorectorResponse.Models.FirstOrDefault();
 
-        if (prorector != null)
-        {
-            if (!PasswordHasher.Verify(request.Password, prorector.PasswordHash))
-                throw new UnauthorizedAccessException("Invalid password");
+        //if (prorector != null)
+        //{
+        //    if (!PasswordHasher.Verify(request.Password, prorector.PasswordHash))
+        //        throw new UnauthorizedAccessException("Invalid password");
 
-            string jwtToken = GenerateJwtTokenProrector(prorector);
-            return new LoginResponse
-            {
-                UserId = prorector.Id,
-                Role = "prorector",
-                JwtToken = jwtToken
-            };
-        }
+        //    string jwtToken = GenerateJwtTokenProrector(prorector);
+        //    return new LoginResponse
+        //    {
+        //        UserId = prorector.Id,
+        //        Role = "prorector",
+        //        JwtToken = jwtToken
+        //    };
+        //}
 
         throw new UnauthorizedAccessException("User not found");
     }
     public async Task ChangePasswordAsync(ChangePasswordRequest request)
     {
-        var response = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<Teacher> response = await _supabase
             .From<Teacher>()
             .Where(x => x.Id == request.TeacherId)
             .Get();
 
-        var teacher = response.Models.FirstOrDefault();
+        Teacher? teacher = response.Models.FirstOrDefault();
 
         if (teacher == null)
             throw new Exception("Teacher not found");

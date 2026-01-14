@@ -11,12 +11,17 @@ namespace API.Models
 
         [Column("firstname")]
         public string LastName { get; set; } = string.Empty;
+
         [Column("lastname")]
         public string FirstName { get; set; } = string.Empty;
+
         [Column("e_mail")]
         public string Email { get; set; } = null!;
 
         [Column("passwordHash")]
         public string PasswordHash { get; set; } = null!;
+
+        [Column("salt")]
+        public string Salt { get; set; } = string.Empty;
     }
 }

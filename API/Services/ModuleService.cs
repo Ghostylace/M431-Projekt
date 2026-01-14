@@ -16,7 +16,7 @@ public class ModuleService : IModuleService
 
     public async Task<List<ModuleDto>> GetAllAsync()
     {
-        var response = await _supabase
+        Supabase.Postgrest.Responses.ModeledResponse<Module> response = await _supabase
             .From<Module>()
             .Get();
 
