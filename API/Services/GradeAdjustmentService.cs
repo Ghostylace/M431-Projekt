@@ -22,8 +22,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             Vise_RectorateId = request.ProrectorId,
             StudentId = request.StudentId,
             ModuleId = request.ModuleId,
-            AlteNote = request.OldGrade,
-            NeueNote = request.NewGrade,
+            NewGrad = request.NewGrade,
             Description = request.Remarks
         };
 
@@ -56,7 +55,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
         entity.Status = request.Status;
         entity.RejectionReason = request.RejectionReason;
-        entity.Testdate = DateTime.UtcNow;
+        entity.TestDate = DateTime.UtcNow;
 
         await _supabase
             .From<GradeAdjustment>()
