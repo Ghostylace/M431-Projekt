@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS Vice_Rectorate (
     Firstname VARCHAR(50) NOT NULL,
     Lastname VARCHAR(50) NOT NULL,
     E_Mail VARCHAR(100) NOT NULL UNIQUE,
-    PasswordHash TEXT NOT NULL
+    PasswordHash TEXT NOT NULL,
+    Salt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Teacher (
@@ -11,7 +12,8 @@ CREATE TABLE IF NOT EXISTS Teacher (
     Firstname VARCHAR(50) NOT NULL,
     Lastname VARCHAR(50) NOT NULL,
     E_Mail VARCHAR(100) NOT NULL UNIQUE,
-    PasswordHash TEXT NOT NULL
+    PasswordHash TEXT NOT NULL,
+    Salt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Student (
