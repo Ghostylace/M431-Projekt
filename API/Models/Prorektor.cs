@@ -20,6 +20,8 @@ public class Prorector : BaseModel
 
     [Column("passwordhash")]
     public string PasswordHash { get; set; } = string.Empty;
+    [Column("salt")]
+    public string Salt { get; set; } = string.Empty;
 
 }
 

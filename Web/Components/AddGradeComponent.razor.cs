@@ -17,13 +17,16 @@ public partial class AddGradeComponent : ComponentBase
     public required IStudentService _studentS { get; set; }
     [Inject]
     public required IModuleService _moduleS { get; set; }
+    [Inject]
+    public required IGradeService _gradeS { get; set; }
 
     public List<TeacherDTO>? teachers { get; set; } = [];
     public List<ProrektorDTO>? vices { get; set; } = [];
     public List<StudentListDto>? students { get; set; } = [];
     public List<ModuleDto>? modules { get; set; } = [];
+    private List<GradeAdjustmentDto>? grades { get; set; } = [];
 
-    public GradeAdjustmentListDto NewGrade { get; set; } = new();
+    public CreateGradeAdjustmentRequest NewGrade { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -31,5 +34,12 @@ public partial class AddGradeComponent : ComponentBase
         vices = await _viceS.GetAll();
         students = await _studentS.GetAll();
         modules = await _moduleS.GetAll();
+        grades = await _gradeS.GetAll();
+    }
+
+    private async Task AddGrade()
+    {
+        bool isSuccess = await _gradeS.AddGrade(NewGrade);
+        Console.WriteLine(isSuccess);
     }
 }

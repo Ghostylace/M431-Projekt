@@ -5,7 +5,7 @@ namespace API.Services.Abstract;
 
 public interface IGradeAdjustmentService
 {
-    Task<GradeAdjustment> CreateAsync(CreateGradeAdjustmentRequest request);
-    Task<List<GradeAdjustment>> GetAllAsync();
-    Task UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request);
+    Task<GradeAdjustmentDto> CreateAsync(CreateGradeAdjustmentRequest request);
+    Task<List<GradeAdjustmentDto>> GetAllAsync();
+    Task<bool> UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request);
 }

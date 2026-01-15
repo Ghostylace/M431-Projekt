@@ -13,10 +13,16 @@ public class GradeService : IGradeService
         _client = client;
     }
 
-    public async Task<List<GradeAdjustmentListDto>?> GetAll()
+    public async Task<List<GradeAdjustmentDto>?> GetAll()
     {
-        List<GradeAdjustmentListDto>? resp = await _client.GetFromJsonAsync<List<GradeAdjustmentListDto>>("api/grade-adjustments");
+        List<GradeAdjustmentDto>? resp = await _client.GetFromJsonAsync<List<GradeAdjustmentDto>>("api/grade-adjustments");
 
         return resp;
+    }
+
+    public async Task<bool> AddGrade(CreateGradeAdjustmentRequest grade)
+    {
+        HttpResponseMessage resp = await _client.PostAsJsonAsync("api/grade-adjustments", grade);
+        return resp.IsSuccessStatusCode;
     }
 }

@@ -28,6 +28,7 @@ public partial class LoginComponent : ComponentBase
         else
         {
             Console.WriteLine(resp.UserId);
+            Console.WriteLine(resp.JwtToken);
         }
     }
 }

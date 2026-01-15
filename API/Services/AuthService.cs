@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
+using Supabase.Postgrest.Responses;
 using System.Text;
 using API.Models;
 using API.Services.Abstract;
@@ -24,7 +24,7 @@ public class AuthService : IAuthService
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         // 1️⃣ Teacher prüfen
-        Supabase.Postgrest.Responses.ModeledResponse<Teacher> teacherResponse = await _supabase
+        ModeledResponse<Teacher> teacherResponse = await _supabase
             .From<Teacher>()
             .Where(t => t.Email == request.Email)
             .Get();
@@ -46,33 +46,33 @@ public class AuthService : IAuthService
             };
         }
 
-        // 2️⃣ Prorector prüfen
-        //var prorectorResponse = await _supabase
-        //    .From<Prorector>()
-        //    .Where(p => p.Email == request.Email)
-        //    .Get();
+        //2️⃣ Prorector prüfen
+        ModeledResponse<Prorector> prorectorResponse = await _supabase
+            .From<Prorector>()
+            .Where(p => p.Email == request.Email)
+            .Get();
 
-        //var prorector = prorectorResponse.Models.FirstOrDefault();
+        Prorector? prorector = prorectorResponse.Models.FirstOrDefault();
 
-        //if (prorector != null)
-        //{
-        //    if (!PasswordHasher.Verify(request.Password, prorector.PasswordHash))
-        //        throw new UnauthorizedAccessException("Invalid password");
+        if (prorector != null)
+        {
+            if (!PasswordHasher.Verify(request.Password, prorector.Salt, prorector.PasswordHash))
+                throw new UnauthorizedAccessException("Invalid password");
 
-        //    string jwtToken = GenerateJwtTokenProrector(prorector);
-        //    return new LoginResponse
-        //    {
-        //        UserId = prorector.Id,
-        //        Role = "prorector",
-        //        JwtToken = jwtToken
-        //    };
-        //}
+            string jwtToken = GenerateJwtTokenProrector(prorector);
+            return new LoginResponse
+            {
+                UserId = prorector.Id,
+                Role = "prorector",
+                JwtToken = jwtToken
+            };
+        }
 
         throw new UnauthorizedAccessException("User not found");
     }
     public async Task ChangePasswordAsync(ChangePasswordRequest request)
     {
-        Supabase.Postgrest.Responses.ModeledResponse<Teacher> response = await _supabase
+        ModeledResponse<Teacher> response = await _supabase
             .From<Teacher>()
             .Where(x => x.Id == request.TeacherId)
             .Get();

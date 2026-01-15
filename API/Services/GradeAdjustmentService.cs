@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Services.Abstract;
 using Shared.DTOs.GradAdjustment;
+using Supabase.Postgrest.Responses;
 using Supabase;
 
 namespace API.Services;
@@ -14,7 +15,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         _supabase = supabase;
     }
 
-    public async Task<GradeAdjustment> CreateAsync(CreateGradeAdjustmentRequest request)
+    public async Task<GradeAdjustmentDto> CreateAsync(CreateGradeAdjustmentRequest request)
     {
         GradeAdjustment entity = new GradeAdjustment
         {
@@ -23,28 +24,65 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             StudentId = request.StudentId,
             ModuleId = request.ModuleId,
             NewGrad = request.NewGrade,
-            Description = request.Remarks
+            Description = request.Remarks,
+            IsDelayed = request.Delayed,
+            TestDate = request.TestDate
         };
 
-        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> result = await _supabase
+        ModeledResponse<GradeAdjustment> result = await _supabase
             .From<GradeAdjustment>()
             .Insert(entity);
 
-        return result.Models.First();
+        GradeAdjustment resp = result.Models.First();
+        return new GradeAdjustmentDto()
+        {
+            Id = resp.Id,
+            TeacherId = resp.TeacherId,
+            StudentId = resp.StudentId,
+            ViceId = resp.Vise_RectorateId,
+            ModuleId = resp.ModuleId,
+            CreatedAt = resp.CreationDate,
+            NewGrade = resp.NewGrad,
+            Remarks = resp.Description ?? string.Empty,
+            Delayed = resp.IsDelayed,
+            Status = resp.Status,
+            TestDate = resp.TestDate
+        };
     }
 
-    public async Task<List<GradeAdjustment>> GetAllAsync()
+    public async Task<List<GradeAdjustmentDto>> GetAllAsync()
     {
-        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
+        ModeledResponse<GradeAdjustment> response = await _supabase
             .From<GradeAdjustment>()
             .Get();
 
-        return response.Models;
+        List<GradeAdjustment> resp = response.Models;
+        List<GradeAdjustmentDto> toReturn = [];
+
+        foreach(GradeAdjustment res in resp)
+        {
+            toReturn.Add(new GradeAdjustmentDto()
+            {
+                Id = res.Id,
+                TeacherId = res.TeacherId,
+                StudentId = res.StudentId,
+                ViceId = res.Vise_RectorateId,
+                ModuleId = res.ModuleId,
+                CreatedAt = res.CreationDate,
+                NewGrade = res.NewGrad,
+                Remarks = res.Description ?? string.Empty,
+                Delayed = res.IsDelayed,
+                Status = res.Status,
+                TestDate = res.TestDate
+            });
+        }
+
+        return toReturn;
     }
 
-    public async Task UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
+    public async Task<bool> UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        Supabase.Postgrest.Responses.ModeledResponse<GradeAdjustment> response = await _supabase
+        ModeledResponse<GradeAdjustment> response = await _supabase
             .From<GradeAdjustment>()
             .Where(x => x.Id == id)
             .Get();
@@ -55,11 +93,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
         entity.Status = request.Status;
         entity.RejectionReason = request.RejectionReason;
-        entity.TestDate = DateTime.UtcNow;
+        entity.TestDate = DateOnly.FromDateTime(DateTime.UtcNow);
 
-        await _supabase
+        ModeledResponse<GradeAdjustment> resp = await _supabase
             .From<GradeAdjustment>()
             .Update(entity);
+        return resp.ResponseMessage.IsSuccessStatusCode;
     }
 }
 

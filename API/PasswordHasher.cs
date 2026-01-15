@@ -20,4 +20,3 @@ public static class PasswordHasher
         return string.Equals(passwordhash, hash);
     }
 }
-

@@ -4,6 +4,7 @@ namespace Web.Services.Interfaces
 {
     public interface IGradeService
     {
-        Task<List<GradeAdjustmentListDto>?> GetAll();
+        Task<List<GradeAdjustmentDto>?> GetAll();
+        Task<bool> AddGrade(CreateGradeAdjustmentRequest grade);
     }
 }

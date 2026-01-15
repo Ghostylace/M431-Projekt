@@ -27,6 +27,7 @@ namespace Web
             builder.Services.AddScoped<IModuleService, ModuleService>();
             builder.Services.AddScoped<IVice_RectorateService, Vice_RectorateService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
+            builder.Services.AddScoped<IGradeService, GradeService>();
 
 
 
