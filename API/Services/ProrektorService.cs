@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Services.Abstract;
 using Shared.DTOs.Prorektor;
+using Supabase.Postgrest.Responses;
 using Supabase;
 
 namespace API.Services;
@@ -16,7 +17,7 @@ public class ProrectorService : IProrectorService
 
     public async Task<List<ProrektorDTO>> GetAllAsync()
     {
-        Supabase.Postgrest.Responses.ModeledResponse<Prorector> response = await _supabase
+        ModeledResponse<Prorector> response = await _supabase
             .From<Prorector>()
             .Get();
 

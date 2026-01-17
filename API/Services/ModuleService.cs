@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Services.Abstract;
+using Supabase.Postgrest.Responses;
 using Shared.DTOs.Module;
 using Supabase;
 
@@ -16,7 +17,7 @@ public class ModuleService : IModuleService
 
     public async Task<List<ModuleDto>> GetAllAsync()
     {
-        Supabase.Postgrest.Responses.ModeledResponse<Module> response = await _supabase
+        ModeledResponse<Module> response = await _supabase
             .From<Module>()
             .Get();
 

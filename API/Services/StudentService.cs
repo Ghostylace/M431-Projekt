@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Services.Abstract;
+using Supabase.Postgrest.Responses;
 using Shared.DTOs.Student;
 using Supabase;
 
@@ -16,7 +17,7 @@ public class StudentService : IStudentService
 
     public async Task<List<StudentListDto>> GetAllAsync()
     {
-        Supabase.Postgrest.Responses.ModeledResponse<Student> response = await _supabase
+        ModeledResponse<Student> response = await _supabase
             .From<Student>()
             .Get();
 
