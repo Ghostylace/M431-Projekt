@@ -9,10 +9,10 @@ namespace API.Models
         [PrimaryKey("teacherid")]
         public int Id { get; set; }
 
-        [Column("firstname")]
+        [Column("lastname")]
         public string LastName { get; set; } = string.Empty;
 
-        [Column("lastname")]
+        [Column("firstname")]
         public string FirstName { get; set; } = string.Empty;
 
         [Column("e_mail")]
