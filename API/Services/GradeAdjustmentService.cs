@@ -26,7 +26,8 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             NewGrad = request.NewGrade,
             Description = request.Remarks,
             IsDelayed = request.Delayed,
-            TestDate = request.TestDate
+            TestDate = request.TestDate,
+            CreationDate = DateTime.UtcNow
         };
 
         ModeledResponse<GradeAdjustment> result = await _supabase
