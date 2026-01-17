@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Services.Abstract;
-using Shared.DTOs;
+using Shared.DTOs.Prorektor;
+using Supabase.Postgrest.Responses;
 using Supabase;
 
 namespace API.Services;
@@ -14,19 +15,20 @@ public class ProrectorService : IProrectorService
         _supabase = supabase;
     }
 
-    public async Task<List<LookupDto>> GetAllAsync()
+    public async Task<List<ProrektorDTO>> GetAllAsync()
     {
-        var response = await _supabase
+        ModeledResponse<Prorector> response = await _supabase
             .From<Prorector>()
             .Get();
 
         return response.Models
-            .Select(p => new LookupDto
+            .Select(p => new ProrektorDTO
             {
                 Id = p.Id,
-                DisplayName = $"{p.Firstname} {p.Lastname}"
+                Vorname = p.Firstname,
+                Nachname = p.Lastname
             })
-            .OrderBy(x => x.DisplayName)
+            .OrderBy(x => x.Vorname)
             .ToList();
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-<h2 class="text-center p-4">Noten</h2>
+﻿<h2 class="text-center p-4">Noten</h2>
 
 
 <div class="row pb-3">
@@ -13,30 +11,29 @@
 <table class="table mt-4">
 	<thead>
 		<tr>
-			<th>Schüler</th>
-			<th>Fach</th>
+			<th>Schüler Name</th>
+			<th>Modul</th>
+			<th>Prorektor</th>
+			<th>Status Abgabe</th>
 			<th>Note</th>
+			<th>Bemerkung</th>
 			<th>Datum</th>
+			<th>Endstatus</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>Max Muster</td>
-			<td>Mathematik</td>
-			<td>5.5</td>
-			<td>12.05.2024</td>
-		</tr>
-		<tr>
-			<td>Anna Beispiel</td>
-			<td>Englisch</td>
-			<td>4.0</td>
-			<td>10.05.2024</td>
-		</tr>
-		<tr>
-			<td>Peter Demo</td>
-			<td>Physik</td>
-			<td>3.5</td>
-			<td>11.05.2024</td>
-		</tr>
+		@foreach (var grade in grades)
+		{
+			<tr>
+				<td>@students[grade.StudentId - 1].FullName</td>
+				<td>@modules[grade.ModuleId - 1].Name</td>
+				<td>@teachers[grade.TeacherId - 1].Nachname @teachers[grade.TeacherId - 1].Vorname</td>
+				<td>@grade.Delayed</td>
+				<td>@grade.NewGrade</td>
+				<td>@grade.Remarks</td>
+				<td>@grade.TestDate</td>
+				<td>@grade.Status</td>
+			</tr>
+		}
 	</tbody>
 </table>

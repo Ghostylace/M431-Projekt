@@ -6,14 +6,14 @@ namespace API.Models;
 [Table("student")]
 public class Student : BaseModel
 {
-    [PrimaryKey("StudentId")]
+    [PrimaryKey("studentid")]
     public int Id { get; set; }
-    [Column("Firstname")]
+    [Column("firstname")]
     public string Vorname { get; set; } = string.Empty;
-    [Column("Lastname ")]
+    [Column("lastname")]
     public string Nachname { get; set; } = string.Empty;
-    [Column("E_Mail")]
+    [Column("e_mail")]
     public string E_Mail { get; set; } = string.Empty;
-    [Column("Class")]
+    [Column("class")]
     public string Klasse { get; set; } = string.Empty;
 }
