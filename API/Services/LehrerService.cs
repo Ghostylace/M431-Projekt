@@ -28,7 +28,7 @@ public class TeacherService : ITeacherService
                 Vorname = t.FirstName,
                 Nachname= t.LastName
             })
-            .OrderBy(x => x.Vorname)
+            .OrderBy(x => x.Id)
             .ToList();
     }
 }
