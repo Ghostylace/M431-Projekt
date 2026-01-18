@@ -13,5 +13,7 @@ public class GradeAdjustmentDto
     public DateOnly? TestDate { get; set; }
     public bool Delayed { get; set; }
     public DateTime CreatedAt { get; set; }
+    public string? DecisionRemark { get; set; }
+    
 }
 

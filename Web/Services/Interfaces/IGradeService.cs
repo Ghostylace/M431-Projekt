@@ -6,5 +6,7 @@ namespace Web.Services.Interfaces
     {
         Task<List<GradeAdjustmentDto>?> GetAll();
         Task<bool> AddGrade(CreateGradeAdjustmentRequest grade);
+
+        Task<bool> UpdateStatus(UpdateGradeAdjustmentStatusRequest grade);
     }
 }

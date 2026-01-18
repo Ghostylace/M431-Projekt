@@ -1,46 +1,25 @@
-﻿
+﻿<h2 class="text-center">Posteingang</h2>
 
-<h2 class="text-center">Posteingang</h2>
+@foreach (var grade in inboxGrades)
+{
+    <div class="container mt-4">
+        <div class="card @(grade.Status == "Akzeptiert" ? "border-success" : "border-danger")">
+            <div class="card-header @(grade.Status == "Akzeptiert" ? "bg-success" : "bg-danger") text-white">
+                Note @grade.Status
+            </div>
 
-<ul class="list-unstyled">
-	<li>
-		<div class="container mt-4">
-			<div class="card border-danger">
-				<div class="card-header bg-danger text-white">
-					Note abgelehnt
-				</div>
-				<div class="card-body">
-					<p class="card-text">
-						<strong>Schüler Name:</strong> Max Mustermann<br>
-						<strong>Modul:</strong> Mathematik<br>
-						<strong>Prorektor:</strong> Dr. Müller<br>
-						<strong>Verspätet:</strong> Nein<br>
-						<strong>Note:</strong> 6<br>
-						<strong>Begründung:</strong>Ich konnte leider diese Note nicht akzeptieren, da die Anforderungen nicht erfüllt wurden!<br />
-						<span class="badge bg-danger">Note abgelehnt</span><br />
-					</p>
-				</div>
-			</div>
-		</div>
-	</li>
-	<li>
-		<div class="container mt-4">
-			<div class="card border-success">
-				<div class="card-header bg-success text-white">
-					Note Akzeptiert
-				</div>
-				<div class="card-body">
-					<p class="card-text">
-						<strong>Schüler Name:</strong> Max Mustermann<br>
-						<strong>Modul:</strong> Mathematik<br>
-						<strong>Prorektor:</strong> Dr. Müller<br>
-						<strong>Verspätet:</strong> Nein<br>
-						<strong>Note:</strong> 6<br>
-						<strong>Begründung:</strong>Die Note wurde akzeptiert und hinzugefügt!<br />
-						<span class="badge bg-success">Note Akzeptiert</span>
-					</p>
-				</div>
-			</div>
-		</div>
-	</li>
-</ul>
+            <div class="card-body">
+                <p class="card-text">
+                    <strong>Schüler Name:</strong> @students.First(s => s.Id == grade.StudentId).FullName<br>
+                    <strong>Modul:</strong> @modules.First(m => m.Id == grade.ModuleId).Name<br>
+                    <strong>Verspätet:</strong> @(grade.Delayed ? "Ja" : "Nein")<br>
+                    <strong>Note:</strong> @grade.NewGrade<br>
+                    <strong>Begründung:</strong> @grade.DecisionRemark<br>
+                    <span class="badge @(grade.Status == "Akzeptiert" ? "bg-success" : "bg-danger")">
+                        Note @grade.Status
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+}
