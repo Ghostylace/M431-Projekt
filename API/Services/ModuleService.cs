@@ -28,7 +28,7 @@ public class ModuleService : IModuleService
                 Name = m.Modulname,
                 Semester = m.Semester
             })
-            .OrderBy(x => x.Name)
+            .OrderBy(x => x.Id)
             .ToList();
     }
 }

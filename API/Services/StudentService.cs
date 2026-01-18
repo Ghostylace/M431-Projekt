@@ -28,7 +28,7 @@ public class StudentService : IStudentService
                 FullName = $"{s.Vorname} {s.Nachname}",
                 Klasse = s.Klasse
             })
-            .OrderBy(x => x.FullName)
+            .OrderBy(x => x.Id)
             .ToList();
     }
 }

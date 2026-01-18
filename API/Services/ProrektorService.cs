@@ -28,7 +28,7 @@ public class ProrectorService : IProrectorService
                 Vorname = p.Firstname,
                 Nachname = p.Lastname
             })
-            .OrderBy(x => x.Vorname)
+            .OrderBy(x => x.Id)
             .ToList();
     }
 }
