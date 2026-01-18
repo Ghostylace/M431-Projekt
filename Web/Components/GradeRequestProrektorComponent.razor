@@ -1,8 +1,6 @@
-﻿
-
+﻿@page "/gestellte-anfragen"
 
 <h2 class="text-center">Gestellte Anfragen</h2>
-
 
 <table class="table mt-4">
     <thead>
@@ -10,36 +8,39 @@
             <th>Schüler</th>
             <th>Note</th>
             <th>Lehrer</th>
-            <th>Datum</th>
-            <th>Status</th>
+            <th>Prüfungs Datum</th>
             <th>Ansicht</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Nelio Schnipper</td>
-            <td>5</td>
-            <td>Christian Lindauer</td>
-            <td>19-02-2025</td>
-            <td>Offen</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-           
-        </tr>
-        <tr>
-            <td>Nevio Gallo</td>
-            <td>5.5</td>
-            <td>Peter Gisler</td>
-            <td>05-04-2025</td>
-            <td>Offen</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-        </tr>
-        <tr>
-            <td>Cyril Escher</td>
-            <td>3</td>
-            <td>Roger Müller</td>
-            <td>26-03-2025</td>
-            <td>Bestätigt</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-        </tr>
+        @if (delayedGrades != null && delayedGrades.Any())
+        {
+            @foreach (var grade in delayedGrades)
+            {
+                <tr>
+                    <td>@students.First(s => s.Id == grade.StudentId).FullName</td>
+                    <td>@grade.NewGrade</td>
+                    <td>
+                        @{
+                            var teacher = teachers.First(t => t.Id == grade.TeacherId);
+                        }
+                        @teacher.Vorname @teacher.Nachname
+                    </td>
+                    <td>@grade.TestDate</td>
+                    
+                    <td>
+                        <button class="btn btn-primary">Ansicht</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center text-muted">
+                    Keine verspäteten Anfragen vorhanden
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
