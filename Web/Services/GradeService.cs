@@ -28,7 +28,8 @@ public class GradeService : IGradeService
 
     public async Task<bool> UpdateStatus(UpdateGradeAdjustmentStatusRequest grade)
     {
-        HttpResponseMessage resp = await _client.PutAsJsonAsync($"api/grade-adjustments/{grade.Id}", grade);
+        var payload = new { grade.Status, RejectionReason = grade.DecisionRemark };
+        HttpResponseMessage resp = await _client.PutAsJsonAsync($"api/grade-adjustments/status{grade.Id}", payload);
         return resp.IsSuccessStatusCode;
     }
 }

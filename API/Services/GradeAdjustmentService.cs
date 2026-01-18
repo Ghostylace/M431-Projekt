@@ -93,7 +93,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             throw new KeyNotFoundException();
 
         entity.Status = request.Status;
-        entity.RejectionReason = request.RejectionReason;
+        entity.RejectionReason = request.DecisionRemark;
         entity.TestDate = DateOnly.FromDateTime(DateTime.UtcNow);
 
         ModeledResponse<GradeAdjustment> resp = await _supabase

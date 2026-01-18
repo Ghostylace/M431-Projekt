@@ -24,9 +24,11 @@ public partial class GradeRequestProrektorComponent
         students = await _studentS.GetAll() ?? new();
         teachers = await _teacherS.GetAll() ?? new();
 
+       
         delayedGrades = allGrades
-            .Where(g => g.Delayed == true && g.Status == "Offen")
+            .Where(g => g.Delayed == false)
             .ToList();
+
     }
 
     void OpenModal(GradeAdjustmentDto grade)

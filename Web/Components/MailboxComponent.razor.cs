@@ -16,16 +16,22 @@ public partial class MailboxComponent
     public List<StudentListDto> students { get; set; } = [];
     public List<ModuleDto> modules { get; set; } = [];
 
+
     protected override async Task OnInitializedAsync()
     {
-        var allGrades = await _gradeS.GetAll() ?? new List<GradeAdjustmentDto>();
+        await LoadGrades();
+    }
 
-        students = await _studentS.GetAll() ?? new List<StudentListDto>();
-        modules = await _moduleS.GetAll() ?? new List<ModuleDto>();
+    public async Task LoadGrades()
+    {
+        var allGrades = await _gradeS.GetAll() ?? new();
+        students = await _studentS.GetAll() ?? new();
+        modules = await _moduleS.GetAll() ?? new();
 
         inboxGrades = allGrades
             .Where(g => g.Status == "Akzeptiert" || g.Status == "Abgelehnt")
             .ToList();
     }
+
 
 }
