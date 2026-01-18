@@ -3,8 +3,15 @@ using Shared.DTOs.Auth;
 using Web.Services.Interfaces;
 
 namespace Web.Components.Authentication;
+
+/// <summary>
+/// Handles user login
+/// </summary>
 public partial class LoginComponent : ComponentBase
 {
+    /// <summary>
+    /// Gets or sets the authentication service.
+    /// </summary>
     [Inject]
     public required IAuthService _authService { get; set; }
 
@@ -21,7 +28,7 @@ public partial class LoginComponent : ComponentBase
 
         LoginResponse? resp = await _authService.LoginAsync(user);
 
-        if(resp == null)
+        if (resp == null)
         {
             Console.WriteLine("Something went wrong");
         }
