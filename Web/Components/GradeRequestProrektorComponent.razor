@@ -47,7 +47,7 @@
                 <div class="modal-body">
                     <p>
                         <strong>Schüler:</strong> @students.First(s => s.Id == selectedGrade.StudentId).FullName<br>
-                        <strong>Lehrer:</strong>
+                        <strong>Lehrer: </strong>
                         @{
                             var t = teachers.First(t => t.Id == selectedGrade.TeacherId);
                         }

@@ -1,116 +1,172 @@
-﻿<h2 class="text-center p-4">Neue Note Hinzufügen</h2>
+﻿<div class="container-fluid px-4">
 
-<div class="text-center">
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#gradeModal">
-		Neue Note hinzufügen
-	</button>
-</div>
+    <h2 class="text-center fw-bold my-4">
+        Neue Note hinzufügen
+    </h2>
 
-<div class="modal fade" id="gradeModal" tabindex="-1" aria-labelledby="gradeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="gradeModalLabel">Neue Note Hinzufügen</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="studentId" class="form-label">Name des Schülers</label>
-                        <select class="form-select" id="studentId" @bind="@NewGrade.StudentId">
-                            @foreach (var b in students)
-                            {
-                                <option value="@b.Id">@b.FullName</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="teacherId" class="form-label">Name der Lehrperson</label>
-                        <select class="form-select" id="teacherId" @bind="@NewGrade.TeacherId">
-                            @foreach (var b in teachers)
-                            {
-                                <option value="@b.Id">@b.Vorname @b.Nachname</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="principalName" class="form-label">Name des Rektors</label>
-                        <select class="form-select" id="studentId" @bind="@NewGrade.ProrectorId">
-                            @foreach (var b in vices)
-                            {
-                                <option value="@b.Id">@b.Vorname @b.Nachname</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="module" class="form-label">Modul</label>
-                        <select class="form-select" id="studentId" @bind="@NewGrade.ModuleId">
-                            @foreach (var b in modules)
-                            {
-                                <option value="@b.Id">@b.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="examDate" class="form-label">Datum der Prüfung</label>
-                        <input type="date" class="form-control" id="examDate" @bind="@NewGrade.TestDate"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="grade" class="form-label">Note</label>
-                        <input type="number" class="form-control" id="grade" @bind="@NewGrade.NewGrade"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="remarks" class="form-label">Kommentar</label>
-                        <input type="text" class="form-control" id="remarks" @bind="@NewGrade.Remarks" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="late" class="form-label">Verspätet?</label>
-                        <select class="form-select" id="late" @bind="@NewGrade.Delayed">
-                            <option value="Nein">Nein</option>
-                            <option value="Ja">Ja</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal" @onclick="AddGrade">Erfassen</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+    <div class="text-center mb-4">
+        <button type="button"
+                class="btn btn-primary btn-lg shadow"
+                data-bs-toggle="modal"
+                data-bs-target="#gradeModal">
+            + Neue Note hinzufügen
+        </button>
+    </div>
+
+    <div class="modal fade" id="gradeModal" tabindex="-1" aria-labelledby="gradeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow">
+
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="gradeModalLabel">
+                        Neue Note erfassen
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form class="row g-3">
+
+                        <div class="col-md-6">
+                            <label for="studentId" class="form-label">Name des Schülers</label>
+                            <select class="form-select" id="studentId" @bind="@NewGrade.StudentId">
+                                @foreach (var b in students)
+                                {
+                                    <option value="@b.Id">@b.FullName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="teacherId" class="form-label">Name der Lehrperson</label>
+                            <select class="form-select" id="teacherId" @bind="@NewGrade.TeacherId">
+                                @foreach (var b in teachers)
+                                {
+                                    <option value="@b.Id">@b.Vorname @b.Nachname</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Name des Rektors</label>
+                            <select class="form-select" @bind="@NewGrade.ProrectorId">
+                                @foreach (var b in vices)
+                                {
+                                    <option value="@b.Id">@b.Vorname @b.Nachname</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Modul</label>
+                            <select class="form-select" @bind="@NewGrade.ModuleId">
+                                @foreach (var b in modules)
+                                {
+                                    <option value="@b.Id">@b.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="examDate" class="form-label">Datum der Prüfung</label>
+                            <input type="date" class="form-control" id="examDate" @bind="@NewGrade.TestDate" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="grade" class="form-label">Note</label>
+                            <input type="number" class="form-control" id="grade" @bind="@NewGrade.NewGrade" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Verspätet?</label>
+                            <select class="form-select" @bind="@NewGrade.Delayed">
+                                <option value="Nein">Nein</option>
+                                <option value="Ja">Ja</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="remarks" class="form-label">Kommentar</label>
+                            <input type="text" class="form-control" id="remarks" @bind="@NewGrade.Remarks" />
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-success px-4"
+                            data-bs-dismiss="modal"
+                            @onclick="AddGrade">
+                        Erfassen
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-outline-secondary px-4"
+                            data-bs-dismiss="modal">
+                        Schließen
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
+
+    <div class="card shadow-sm border-0 mt-5">
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-3">
+                Übersicht der Abgaben
+            </h5>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Schüler Name</th>
+                            <th>Modul</th>
+                            <th>Prorektor</th>
+                            <th>Status Abgabe</th>
+                            <th>Note</th>
+                            <th>Bemerkung</th>
+                            <th>Datum</th>
+                            <th>Endstatus</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var grade in grades)
+                        {
+                            <tr>
+                                <td class="fw-semibold">
+                                    @students[grade.StudentId - 1].FullName
+                                </td>
+                                <td>@modules[grade.ModuleId - 1].Name</td>
+                                <td>@teachers[grade.TeacherId - 1].Nachname @teachers[grade.TeacherId - 1].Vorname</td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @grade.Delayed
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary fs-6">
+                                        @grade.NewGrade
+                                    </span>
+                                </td>
+                                <td class="text-muted">@grade.Remarks</td>
+                                <td>@grade.TestDate</td>
+                                <td>
+                                    <span class="badge bg-success">
+                                        @grade.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
 </div>
-
-
-  <div class="container py-4">
-    <h1 class="h4 mb-3">Übersicht der Abgaben</h1>
-
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th>Schüler Name</th>
-                <th>Modul</th>
-                <th>Prorektor</th>
-                <th>Status Abgabe</th>
-                <th>Note</th>
-                <th>Bemerkung</th>
-                <th>Datum</th>
-                <th>Endstatus</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var grade in grades)
-            {
-                <tr>
-                    <td>@students[grade.StudentId - 1].FullName</td>
-                    <td>@modules[grade.ModuleId - 1].Name</td>
-                    <td>@teachers[grade.TeacherId - 1].Nachname @teachers[grade.TeacherId - 1].Vorname</td>
-                    <td>@grade.Delayed</td>
-                    <td>@grade.NewGrade</td>
-                    <td>@grade.Remarks</td>
-                    <td>@grade.TestDate</td>
-                    <td>@grade.Status</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-  </div>

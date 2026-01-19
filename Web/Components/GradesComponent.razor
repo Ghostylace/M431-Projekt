@@ -1,31 +1,77 @@
-﻿<h2 class="text-center p-4">Noten</h2>
+﻿<div class="container-fluid px-4">
 
-<table class="table mt-4">
-	<thead>
-		<tr>
-			<th>Schüler Name</th>
-			<th>Modul</th>
-			<th>Prorektor</th>
-			<th>Status Abgabe</th>
-			<th>Note</th>
-			<th>Bemerkung</th>
-			<th>Datum</th>
-			<th>Endstatus</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var grade in grades)
-		{
-			<tr>
-				<td>@students[grade.StudentId - 1].FullName</td>
-				<td>@modules[grade.ModuleId - 1].Name</td>
-				<td>@teachers[grade.TeacherId - 1].Nachname @teachers[grade.TeacherId - 1].Vorname</td>
-				<td>@grade.Delayed</td>
-				<td>@grade.NewGrade</td>
-				<td>@grade.Remarks</td>
-				<td>@grade.TestDate</td>
-				<td>@grade.Status</td>
-			</tr>
-		}
-	</tbody>
-</table>
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-body">
+
+            <h2 class="text-center fw-bold mb-4">
+                Noten
+            </h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Schüler Name</th>
+                            <th>Modul</th>
+                            <th>Prorektor</th>
+                            <th>Status Abgabe</th>
+                            <th>Note</th>
+                            <th>Bemerkung</th>
+                            <th>Datum</th>
+                            <th>Endstatus</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var grade in grades)
+                        {
+                            <tr>
+                                <td class="fw-semibold">
+                                    @students[grade.StudentId - 1].FullName
+                                </td>
+
+                                <td>
+                                    @modules[grade.ModuleId - 1].Name
+                                </td>
+
+                                <td>
+                                    @teachers[grade.TeacherId - 1].Nachname
+                                    @teachers[grade.TeacherId - 1].Vorname
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        @grade.Delayed
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-primary fs-6">
+                                        @grade.NewGrade
+                                    </span>
+                                </td>
+
+                                <td class="text-muted">
+                                    @grade.Remarks
+                                </td>
+
+                                <td>
+                                    @grade.TestDate
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-success">
+                                        @grade.Status
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
