@@ -21,7 +21,7 @@ namespace Web
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped<ITest, Test>();
+            
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITeacherService, TeacherService>();
             builder.Services.AddScoped<IModuleService, ModuleService>();
