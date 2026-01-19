@@ -16,7 +16,7 @@ Meine Aufgabe war es, das Mockup zu erstellen. Ich hatte die Idee, das Mockup wi
 ## Emanuel
 Ich habe im Codedecks meine Arbeiten erstellt. Ich habe die Nutzwerkanalyse für unser Team erstellt mit Nelio.
 Ich habe bereits das normale HTML für das Register und Login erstellt, damit ich es nur noch mit der Datenbank verbinden muss.
-Ich hab dann noch alle restlichen Pages welche wir für das Projekt brauchen erstellt und dazu das normal HTML mit Bootstrap erstellt. Dann hab ich mit einem GET von den Lehrern der GIBZ einen Durchbruch erstellt das wir wussten das es funktioniert mit der DB zu verbinden. Es gab oft das Szenario, dass etwas im Backend oder Frontend noch nicht voll umgesetzt wurde und man dann dadurch nichts testen konnte, ob es auf der WebApp funktionierte. 
+Ich hab dann noch alle restlichen Pages welche wir für das Projekt brauchen erstellt und dazu das normal HTML mit Bootstrap erstellt. Dann hab ich mit einem GET von den Lehrern der GIBZ einen Durchbruch erstellt das wir wussten das es funktioniert mit der DB zu verbinden. Es gab oft das Szenario, dass etwas im Backend noch nicht voll umgesetzt wurde und man dann dadurch nichts testen konnte, ob die Funktionen jetzt funktionierten. Darum entschieden wir uns dann mehrere Branches zu machen für die verschiedenen Teile des Projekts. Das machte vieles leichter. 
 
 
 Codecks Link: `https://slowkob.codecks.io`
