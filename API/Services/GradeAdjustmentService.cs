@@ -3,6 +3,9 @@ using API.Services.Abstract;
 using Shared.DTOs.GradAdjustment;
 using Supabase.Postgrest.Responses;
 using Supabase;
+using Azure;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace API.Services;
 
@@ -23,7 +26,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             Vise_RectorateId = request.ProrectorId,
             StudentId = request.StudentId,
             ModuleId = request.ModuleId,
-            NewGrad = request.NewGrade,
+            NewGrade = request.NewGrade,
             Description = request.Remarks,
             IsDelayed = request.Delayed,
             TestDate = request.TestDate,
@@ -43,7 +46,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             ViceId = resp.Vise_RectorateId,
             ModuleId = resp.ModuleId,
             CreatedAt = resp.CreationDate,
-            NewGrade = resp.NewGrad,
+            NewGrade = resp.NewGrade,
             Remarks = resp.Description ?? string.Empty,
             Delayed = resp.IsDelayed,
             Status = resp.Status,
@@ -60,7 +63,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         List<GradeAdjustment> resp = response.Models;
         List<GradeAdjustmentDto> toReturn = [];
 
-        foreach(GradeAdjustment res in resp)
+        foreach (GradeAdjustment res in resp)
         {
             toReturn.Add(new GradeAdjustmentDto()
             {
@@ -70,11 +73,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
                 ViceId = res.Vise_RectorateId,
                 ModuleId = res.ModuleId,
                 CreatedAt = res.CreationDate,
-                NewGrade = res.NewGrad,
+                NewGrade = res.NewGrade,
                 Remarks = res.Description ?? string.Empty,
                 Delayed = res.IsDelayed,
                 Status = res.Status,
-                TestDate = res.TestDate
+                TestDate = res.TestDate,
+                RejectionReason = res.RejectionReason
             });
         }
 
@@ -83,23 +87,37 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<bool> UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        ModeledResponse<GradeAdjustment> response = await _supabase
+        ModeledResponse<GradeAdjustment> res = await _supabase
             .From<GradeAdjustment>()
             .Where(x => x.Id == id)
             .Get();
 
-        GradeAdjustment? entity = response.Models.FirstOrDefault();
-        if (entity == null)
-            throw new KeyNotFoundException();
+        GradeAdjustment? existing = res.Models.FirstOrDefault();
+        if (existing == null)
+            return false;
 
-        entity.Status = request.Status;
-        entity.RejectionReason = request.RejectionReason;
-        entity.TestDate = DateOnly.FromDateTime(DateTime.UtcNow);
-
-        ModeledResponse<GradeAdjustment> resp = await _supabase
+        GradeAdjustment update = new GradeAdjustment
+        {
+            Id = id,
+            TeacherId = existing.TeacherId,
+            StudentId = existing.StudentId,
+            Vise_RectorateId = existing.Vise_RectorateId,
+            ModuleId = existing.ModuleId,
+            CreationDate = existing.CreationDate,
+            NewGrade = existing.NewGrade,
+            Description = existing.Description ?? string.Empty,
+            IsDelayed = existing.IsDelayed,
+            Status = request.Status,
+            RejectionReason = request.RejectionReason,
+            TestDate = DateTime.UtcNow.Date
+        };
+        ModeledResponse<GradeAdjustment> updateResponse = await _supabase
             .From<GradeAdjustment>()
-            .Update(entity);
-        return resp.ResponseMessage.IsSuccessStatusCode;
+            .Where(x => x.Id == id)
+            .Update(update);
+
+        return updateResponse.ResponseMessage.IsSuccessStatusCode && updateResponse.Models.Count > 0;
     }
+
 }
 
