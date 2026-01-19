@@ -2,6 +2,7 @@
 
 public class UpdateGradeAdjustmentStatusRequest
 {
-    public string Status { get; set; } = string.Empty;
-    public string? RejectionReason { get; set; }
+    public int Id { get; set; }
+    public string Status { get; set; } = "";
+    public string? DecisionRemark { get; set; }
 }

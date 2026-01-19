@@ -1,8 +1,8 @@
-﻿using Shared.DTOs;
+﻿using Shared.DTOs.Teacher;
 
 namespace API.Services.Abstract;
 
 public interface ITeacherService
 {
-    Task<List<LookupDto>> GetAllAsync();
+    Task<List<TeacherDTO>> GetAllAsync();
 }

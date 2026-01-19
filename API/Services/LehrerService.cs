@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Services.Abstract;
-using Shared.DTOs;
+using Shared.DTOs.Teacher;
+using Supabase.Postgrest.Responses;
 using Supabase;
 
 namespace API.Services;
@@ -14,19 +15,20 @@ public class TeacherService : ITeacherService
         _supabase = supabase;
     }
 
-    public async Task<List<LookupDto>> GetAllAsync()
+    public async Task<List<TeacherDTO>> GetAllAsync()
     {
-        var response = await _supabase
+        ModeledResponse<Teacher> response = await _supabase
             .From<Teacher>()
             .Get();
 
         return response.Models
-            .Select(t => new LookupDto
+            .Select(t => new TeacherDTO
             {
                 Id = t.Id,
-                DisplayName = $"{t.FirstName} {t.LastName}"
+                Vorname = t.FirstName,
+                Nachname= t.LastName
             })
-            .OrderBy(x => x.DisplayName)
+            .OrderBy(x => x.Id)
             .ToList();
     }
 }

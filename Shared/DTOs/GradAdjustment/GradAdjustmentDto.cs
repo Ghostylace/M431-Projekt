@@ -1,15 +1,19 @@
 ﻿namespace Shared.DTOs.GradAdjustment;
 
-public class GradeAdjustmentListDto
+public class GradeAdjustmentDto
 {
     public int Id { get; set; }
-
-    public string StudentName { get; set; } = string.Empty;
-    public string ModuleName { get; set; } = string.Empty;
-
-    public decimal NewGrade { get; set; }
+    public int StudentId { get; set; } = 1;
+    public int ModuleId { get; set; } = 1;
+    public int TeacherId { get; set; } = 1;
+    public int ViceId { get; set; } = 1;
+    public float NewGrade { get; set; }
     public string Status { get; set; } = string.Empty;
-
+    public string Remarks { get; set; } = string.Empty;
+    public DateOnly? TestDate { get; set; }
+    public bool Delayed { get; set; }
     public DateTime CreatedAt { get; set; }
+    public string? DecisionRemark { get; set; }
+    
 }
 

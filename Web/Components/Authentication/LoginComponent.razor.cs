@@ -1,5 +1,41 @@
-namespace Web.Components.Authentication;
-public partial class LoginComponent
-{
+using Microsoft.AspNetCore.Components;
+using Shared.DTOs.Auth;
+using Web.Services.Interfaces;
 
+namespace Web.Components.Authentication;
+
+/// <summary>
+/// Handles user login
+/// </summary>
+public partial class LoginComponent : ComponentBase
+{
+    /// <summary>
+    /// Gets or sets the authentication service.
+    /// </summary>
+    [Inject]
+    public required IAuthService _authService { get; set; }
+
+    private string Email { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+
+    private async Task LoginButton()
+    {
+        LoginRequest user = new()
+        {
+            Email = Email,
+            Password = Password
+        };
+
+        LoginResponse? resp = await _authService.LoginAsync(user);
+
+        if (resp == null)
+        {
+            Console.WriteLine("Something went wrong");
+        }
+        else
+        {
+            Console.WriteLine(resp.UserId);
+            Console.WriteLine(resp.JwtToken);
+        }
+    }
 }

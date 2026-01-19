@@ -6,17 +6,22 @@ namespace API.Models
     [Table("teacher")]
     public class Teacher : BaseModel
     {
-        [PrimaryKey("TeacherId")]
+        [PrimaryKey("teacherid")]
         public int Id { get; set; }
 
-        [Column("Firstname")]
+        [Column("lastname")]
         public string LastName { get; set; } = string.Empty;
-        [Column("Lastname")]
+
+        [Column("firstname")]
         public string FirstName { get; set; } = string.Empty;
-        [Column("E_Mail")]
+
+        [Column("e_mail")]
         public string Email { get; set; } = null!;
 
-        [Column("PasswordHash")]
+        [Column("passwordHash")]
         public string PasswordHash { get; set; } = null!;
+
+        [Column("salt")]
+        public string Salt { get; set; } = string.Empty;
     }
 }

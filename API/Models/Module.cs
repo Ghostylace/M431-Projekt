@@ -6,11 +6,11 @@ namespace API.Models;
 [Table("module")]
 public class Module : BaseModel
 {
-    [PrimaryKey("ModuleId")]
+    [PrimaryKey("moduleid")]
     public int Id { get; set; }
-    [Column("Modulname")]
+    [Column("modulname")]
     public string Modulname { get; set; } = string.Empty;
-    [Column("Semester")]
+    [Column("semester")]
     public int Semester { get; set; }
 }
 

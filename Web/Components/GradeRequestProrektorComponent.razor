@@ -1,8 +1,4 @@
-﻿
-
-
-<h2 class="text-center">Gestellte Anfragen</h2>
-
+﻿<h2 class="text-center">Gestellte Anfragen</h2>
 
 <table class="table mt-4">
     <thead>
@@ -11,35 +7,69 @@
             <th>Note</th>
             <th>Lehrer</th>
             <th>Datum</th>
-            <th>Status</th>
             <th>Ansicht</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Nelio Schnipper</td>
-            <td>5</td>
-            <td>Christian Lindauer</td>
-            <td>19-02-2025</td>
-            <td>Offen</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-           
-        </tr>
-        <tr>
-            <td>Nevio Gallo</td>
-            <td>5.5</td>
-            <td>Peter Gisler</td>
-            <td>05-04-2025</td>
-            <td>Offen</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-        </tr>
-        <tr>
-            <td>Cyril Escher</td>
-            <td>3</td>
-            <td>Roger Müller</td>
-            <td>26-03-2025</td>
-            <td>Bestätigt</td>
-            <td><button class="btn btn-primary">Ansicht</button></td>
-        </tr>
+        @foreach (var grade in delayedGrades)
+        {
+            <tr>
+                <td>@students.First(s => s.Id == grade.StudentId).FullName</td>
+                <td>@grade.NewGrade</td>
+                <td>
+                    @{
+                        var t = teachers.First(t => t.Id == grade.TeacherId);
+                    }
+                    @t.Vorname @t.Nachname
+                </td>
+                <td>@grade.TestDate</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => OpenModal(grade)">
+                        Ansicht
+                    </button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (selectedGrade != null)
+{
+    <div class="modal fade show d-block" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Anfrage prüfen</h5>
+                    <button class="btn-close" @onclick="CloseModal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        <strong>Schüler:</strong> @students.First(s => s.Id == selectedGrade.StudentId).FullName<br>
+                        <strong>Lehrer:</strong>
+                        @{
+                            var t = teachers.First(t => t.Id == selectedGrade.TeacherId);
+                        }
+                        @t.Vorname @t.Nachname<br>
+                        <strong>Datum:</strong> @selectedGrade.TestDate<br>
+                        <strong>Note:</strong> @selectedGrade.NewGrade
+                    </p>
+
+                    <div class="mb-3">
+                        <label class="form-label">Bemerkung</label>
+                        <textarea class="form-control" rows="3" @bind="remarkText"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" @onclick="Reject">Ablehnen</button>
+                    <button class="btn btn-success" @onclick="Accept">Akzeptieren</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop fade show"></div>
+}

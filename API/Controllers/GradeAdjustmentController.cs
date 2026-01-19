@@ -20,15 +20,16 @@ public class GradeAdjustmentsController : ControllerBase
         => Ok(await _service.GetAllAsync());
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateGradeAdjustmentRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateGradeAdjustmentRequest request)
         => Ok(await _service.CreateAsync(request));
 
     [HttpPut("{id}/status")]
-    public async Task<IActionResult> UpdateStatus(
-        int id,
-        UpdateGradeAdjustmentStatusRequest request)
+    public async Task<IActionResult> UpdateStatus(int id,UpdateGradeAdjustmentStatusRequest request)
     {
-        await _service.UpdateStatusAsync(id, request);
-        return NoContent();
+        bool isSuccess = await _service.UpdateStatusAsync(id, request);
+
+        if (isSuccess)
+            return Ok("Successfully updated Grade");
+        return NotFound("Grade not found");
     }
 }
