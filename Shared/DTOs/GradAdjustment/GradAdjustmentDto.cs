@@ -10,10 +10,9 @@ public class GradeAdjustmentDto
     public float NewGrade { get; set; }
     public string Status { get; set; } = string.Empty;
     public string Remarks { get; set; } = string.Empty;
-    public DateOnly? TestDate { get; set; }
+    public DateTime? TestDate { get; set; }
     public bool Delayed { get; set; }
     public DateTime CreatedAt { get; set; }
-    public string? DecisionRemark { get; set; }
-    
+    public string RejectionReason { get; set; }
 }
 
