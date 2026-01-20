@@ -1,4 +1,5 @@
 # Dokumentation Arbeitsschritte von jeder Person
+# Codecks Link: `https://slowkob.codecks.io`
 
 ## Cyril --> Grundsätzliches Arbeitsgebiet: Alles, was mit Code zu tun hatte
 Ich habe zuerst das GitHub-Repository erstellt und danach direkt das Frontend- und Backend-Projekt aufgesetzt. Zudem habe ich ein Shared-Projekt erstellt, damit wir unsere DTOs an einem Ort ablegen können. Danach habe ich vorgeschlagen, die Datenbank über Supabase aufzusetzen, damit nicht jeder die Datenbank lokal installieren muss und wir einfacher gemeinsam daran arbeiten können. Ausserdem habe ich die ersten paar CRUD-Operationen für den Prorektor und Lehrer erstellt und die bestehenden Funktionen von anderen entsprechend angepasst. Danach habe ich den JWT Token Generator hinzugefügt und die nötigen Daten in die appsettings-Datei eingetragen. Dabei musste ich sogar zwei separate Token Generatoren erstellen, weil der Login-Controller je nach Anmeldetyp unterschiedliche Rückgaben liefert. Nebenbei habe ich auch immer wieder Bugfixes gemacht, damit das Projekt überhaupt sauber starten konnte. Bei den meisten Models musste ich ausserdem die Properties an die Datenbank anpassen, damit alles korrekt zusammenpasst und funktioniert. Gegen Ende arbeitete ich hauptsächlich an den Features, die wir noch beenden mussten. Darunter zählt die 2-Faktor-Authentifizierung oder der Counter für die Abrundung/Aufrundung. 
@@ -19,6 +20,3 @@ Gegen Schluss mussten wir doch eher noch viel Zeit für die verschiedensten Feat
 An was hat es gelegen?
 -Schlechte Teamkommunikation --> Jeder wusste, was zu tun ist, aber nicht jeder machte es auch. Wäre ein fester Teamleiter hilfreich gewesen?
 -Zeit --> Wir verschätzten uns mit wieviel Zeit es wirklich braucht. Die Ferien nutzen wir nicht viel fürs Projekt, da wir eigentlich genug Zeit danach noch hatten. Dann kamen grosse Prüfungen und           Präsentationen und schon wurde es knapp.
-
-
-Codecks Link: `https://slowkob.codecks.io`
