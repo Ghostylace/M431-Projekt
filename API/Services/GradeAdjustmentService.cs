@@ -3,6 +3,9 @@ using API.Services.Abstract;
 using Shared.DTOs.GradAdjustment;
 using Supabase.Postgrest.Responses;
 using Supabase;
+using Azure;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace API.Services;
 
@@ -62,7 +65,7 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         List<GradeAdjustment> resp = response.Models;
         List<GradeAdjustmentDto> toReturn = [];
 
-        foreach(GradeAdjustment res in resp)
+        foreach (GradeAdjustment res in resp)
         {
             toReturn.Add(new GradeAdjustmentDto()
             {
@@ -86,23 +89,21 @@ public class GradeAdjustmentService : IGradeAdjustmentService
 
     public async Task<bool> UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
-        ModeledResponse<GradeAdjustment> response = await _supabase
+        ModeledResponse<GradeAdjustment> res = await _supabase
             .From<GradeAdjustment>()
             .Where(x => x.Id == id)
             .Get();
 
-        GradeAdjustment? entity = response.Models.FirstOrDefault();
-        if (entity == null)
-            throw new KeyNotFoundException();
+        GradeAdjustment? existing = res.Models.FirstOrDefault();
+        if (existing == null)
+            return false;
 
         entity.Status = request.Status;
         entity.RejectionReason = request.DecisionRemark;
         entity.TestDate = DateOnly.FromDateTime(DateTime.UtcNow);
 
-        ModeledResponse<GradeAdjustment> resp = await _supabase
-            .From<GradeAdjustment>()
-            .Update(entity);
-        return resp.ResponseMessage.IsSuccessStatusCode;
+        return updateResponse.ResponseMessage.IsSuccessStatusCode && updateResponse.Models.Count > 0;
     }
+
 }
 

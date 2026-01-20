@@ -37,7 +37,7 @@ public class GradeAdjustment : BaseModel
     public string Status { get; set; } = "EINGEREICHT";
 
     [Column("testdate")]
-    public DateOnly? TestDate { get; set; }
+    public DateTime? TestDate { get; set; }
 
     [Column("rejectionreason")]
     public string? RejectionReason { get; set; }
