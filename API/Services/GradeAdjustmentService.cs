@@ -23,11 +23,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             Vise_RectorateId = request.ProrectorId,
             StudentId = request.StudentId,
             ModuleId = request.ModuleId,
-            NewGrad = request.NewGrade,
+            NewGrade = request.NewGrade,
             Description = request.Remarks,
             IsDelayed = request.Delayed,
             TestDate = request.TestDate,
-            CreationDate = DateTime.UtcNow
+            CreationDate = DateTime.UtcNow,
+            RoundedUp = request.RoundedUp
         };
 
         ModeledResponse<GradeAdjustment> result = await _supabase
@@ -43,11 +44,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
             ViceId = resp.Vise_RectorateId,
             ModuleId = resp.ModuleId,
             CreatedAt = resp.CreationDate,
-            NewGrade = resp.NewGrad,
+            NewGrade = resp.NewGrade,
             Remarks = resp.Description ?? string.Empty,
             Delayed = resp.IsDelayed,
             Status = resp.Status,
-            TestDate = resp.TestDate
+            TestDate = resp.TestDate,
+            RoundedUp = resp.RoundedUp
         };
     }
 
@@ -70,11 +72,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
                 ViceId = res.Vise_RectorateId,
                 ModuleId = res.ModuleId,
                 CreatedAt = res.CreationDate,
-                NewGrade = res.NewGrad,
+                NewGrade = res.NewGrade,
                 Remarks = res.Description ?? string.Empty,
                 Delayed = res.IsDelayed,
                 Status = res.Status,
-                TestDate = res.TestDate
+                TestDate = res.TestDate,
+                RoundedUp = res.RoundedUp
             });
         }
 

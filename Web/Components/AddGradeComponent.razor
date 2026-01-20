@@ -73,8 +73,22 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="grade" class="form-label">Note</label>
-                            <input type="number" class="form-control" id="grade" @bind="@NewGrade.NewGrade" />
+                            <label class="form-label">Note</label>
+                            <select class="form-select"
+                                    @bind-value="NewGrade.NewGrade"
+                                    @bind-value:event="onchange">
+                                <option value="6">6.0</option>
+                                <option value="5.5">5.5</option>
+                                <option value="5">5.0</option>
+                                <option value="4.5">4.5</option>
+                                <option value="4">4.0</option>
+                                <option value="3.5">3.5</option>
+                                <option value="3">3.0</option>
+                                <option value="2.5">2.5</option>
+                                <option value="2">2.0</option>
+                                <option value="1.5">1.5</option>
+                                <option value="1">1.0</option>
+                            </select>
                         </div>
 
                         <div class="col-md-3">
@@ -85,11 +99,22 @@
                             </select>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-6">
                             <label for="remarks" class="form-label">Kommentar</label>
                             <input type="text" class="form-control" id="remarks" @bind="@NewGrade.Remarks" />
                         </div>
-
+                        <div class="col-3">
+                            <label>Rundungen</label>
+                            <label>Aufgerundet: @roundings[NewGrade.StudentId-1].RoundedUp</label>
+                            <label>Abgerundet: @roundings[NewGrade.StudentId-1].RoundedDown</label>
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label">Runden</label>
+                            <select class="form-select" @bind="@NewGrade.RoundedUp">
+                                <option value="true">Aufrunden</option>
+                                <option value="false">Abrunden</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
 

@@ -22,7 +22,7 @@ public class GradeAdjustment : BaseModel
     public int ModuleId { get; set; }
 
     [Column("newgrad")]
-    public float NewGrad { get; set; }
+    public decimal NewGrade { get; set; }
 
     [Column("creationdate")]
     public DateTime CreationDate { get; set; }
@@ -41,5 +41,8 @@ public class GradeAdjustment : BaseModel
 
     [Column("rejectionreason")]
     public string? RejectionReason { get; set; }
+
+    [Column("RoundedUp")]
+    public bool RoundedUp { get; set; }
 }
 

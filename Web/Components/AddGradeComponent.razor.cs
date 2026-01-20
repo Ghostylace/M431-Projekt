@@ -64,6 +64,7 @@ public partial class AddGradeComponent : ComponentBase
     public List<ModuleDto>? modules { get; set; } = [];
 
     private List<GradeAdjustmentDto>? grades { get; set; } = [];
+    private List<StudentRoundings> roundings { get; set; } = [];
 
     public CreateGradeAdjustmentRequest NewGrade { get; set; } = new();
 
@@ -74,8 +75,26 @@ public partial class AddGradeComponent : ComponentBase
         students = await _studentS.GetAll();
         modules = await _moduleS.GetAll();
         grades = await _gradeS.GetAll();
-    }
 
+        foreach(var student in students)
+        {
+            int roundedUp = 0;
+            int roundedDown = 0;
+            foreach(var grade in grades)
+            {
+                if (grade.RoundedUp && grade.StudentId == student.Id)
+                    roundedUp++;
+                else
+                    roundedDown++;
+            }
+            roundings.Add(new()
+            {
+                StudentId = student.Id,
+                RoundedUp = roundedUp,
+                RoundedDown = roundedDown
+            });
+        }
+    }
 
     private async Task AddGrade()
     {
