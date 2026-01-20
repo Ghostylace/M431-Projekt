@@ -105,8 +105,8 @@
                         </div>
                         <div class="col-3">
                             <label>Rundungen</label>
-                            <label>Aufgerundet: @roundings[NewGrade.StudentId-1].RoundedUp</label>
-                            <label>Abgerundet: @roundings[NewGrade.StudentId-1].RoundedDown</label>
+                            <label>Aufgerundet: @roundings.Find(r => r.StudentId == NewGrade.StudentId)?.RoundedUp</label>
+                            <label>Abgerundet: @roundings.Find(r => r.StudentId == NewGrade.StudentId)?.RoundedDown</label>
                         </div>
                         <div class="col-3">
                             <label class="form-label">Runden</label>

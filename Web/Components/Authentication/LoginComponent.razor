@@ -52,7 +52,7 @@
                 </p>
 
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="codeInput" placeholder="Code">
+                    <input type="number" class="form-control" id="codeInput" @bind="@randomCodeUser">
                     <label for="codeInput">Code</label>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 
                 <button type="button"
                         class="btn btn-primary popupSave"
-                        data-bs-dismiss="modal">
+                        data-bs-dismiss="modal" @onclick="CheckRandomCode">
                     Weiter
                 </button>
             </div>

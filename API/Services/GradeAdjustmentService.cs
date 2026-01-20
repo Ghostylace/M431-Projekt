@@ -98,11 +98,13 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         if (existing == null)
             return false;
 
-        entity.Status = request.Status;
-        entity.RejectionReason = request.DecisionRemark;
-        entity.TestDate = DateOnly.FromDateTime(DateTime.UtcNow);
+        existing.Status = request.Status;
+        existing.RejectionReason = request.DecisionRemark;
+        existing.TestDate = DateTime.UtcNow;
 
-        return updateResponse.ResponseMessage.IsSuccessStatusCode && updateResponse.Models.Count > 0;
+        ModeledResponse<GradeAdjustment> updateResponse = await _supabase.From<GradeAdjustment>().Update(existing);
+
+        return updateResponse.ResponseMessage.IsSuccessStatusCode;
     }
 
 }

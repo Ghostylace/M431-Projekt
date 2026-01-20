@@ -75,16 +75,16 @@ public partial class AddGradeComponent : ComponentBase
         students = await _studentS.GetAll();
         modules = await _moduleS.GetAll();
         grades = await _gradeS.GetAll();
-
-        foreach(var student in students)
+        roundings = [];
+        foreach(StudentListDto student in students)
         {
             int roundedUp = 0;
             int roundedDown = 0;
-            foreach(var grade in grades)
+            foreach(GradeAdjustmentDto grade in grades)
             {
                 if (grade.RoundedUp && grade.StudentId == student.Id)
                     roundedUp++;
-                else
+                else if(!grade.RoundedUp && grade.StudentId == student.Id)
                     roundedDown++;
             }
             roundings.Add(new()
