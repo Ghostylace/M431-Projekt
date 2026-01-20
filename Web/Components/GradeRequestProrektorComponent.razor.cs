@@ -59,11 +59,11 @@ public partial class GradeRequestProrektorComponent
     {
         var allGrades = await _gradeS.GetAll() ?? new();
         students = await _studentS.GetAll() ?? new();
-        teachers = await _teacherS.GetAll() ?? new();
+        teachers = await _teacherS.GetAll() ?? new();   
 
         delayedGrades = allGrades
             .Where(g => g.Delayed == false)
-            .ToList();
+            .ToList();  
     }
 
     /// <summary>
