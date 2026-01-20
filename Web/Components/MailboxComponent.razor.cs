@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Components;
 using Shared.DTOs.GradAdjustment;
 using Shared.DTOs.Module;
 using Shared.DTOs.Student;
-using Web.Pages;
 using Web.Services.Interfaces;
 
 namespace Web.Components;
@@ -58,7 +57,7 @@ public partial class MailboxComponent
         modules = await _moduleS.GetAll() ?? new();
 
         inboxGrades = allGrades
-            .Where(g => g.Status == "Akzeptiert" || g.Status == "Abgelehnt")
+            //.Where(g => g.Status == "Akzeptiert" || g.Status == "Abgelehnt")
             .ToList();
     }
 }
