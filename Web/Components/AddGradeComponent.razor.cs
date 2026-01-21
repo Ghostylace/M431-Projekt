@@ -4,6 +4,7 @@ using Shared.DTOs.Module;
 using Shared.DTOs.Prorektor;
 using Shared.DTOs.Student;
 using Shared.DTOs.Teacher;
+using Web.Services;
 using Web.Services.Interfaces;
 
 namespace Web.Components;
@@ -42,6 +43,12 @@ public partial class AddGradeComponent : ComponentBase
     /// </summary>
     [Inject]
     public required IGradeService _gradeS { get; set; }
+
+    /// <summary>
+    /// Gets or sets the notification service.
+    /// </summary>
+    [Inject]
+    public required NotificationService NotificationService { get; set; }
 
     /// <summary>
     /// Gets or sets the teachers.
@@ -100,5 +107,7 @@ public partial class AddGradeComponent : ComponentBase
     {
         bool isSuccess = await _gradeS.AddGrade(NewGrade);
         Console.WriteLine(isSuccess);
+
+        NotificationService.AddRequest();
     }
 }

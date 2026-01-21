@@ -63,7 +63,9 @@ public partial class GradeRequestProrektorComponent
 
         delayedGrades = allGrades
             .Where(g => g.Delayed == false)
-            .ToList();  
+            .ToList();
+
+        NotificationService.ClearRequests();
     }
 
     /// <summary>
