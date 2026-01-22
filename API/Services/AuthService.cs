@@ -21,6 +21,12 @@ public class AuthService : IAuthService
         _config = config;
     }
 
+    /// <summary>
+    /// The login method for the user to log in
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    /// <exception cref="UnauthorizedAccessException"></exception>
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
         // 1️⃣ Teacher prüfen
@@ -33,7 +39,6 @@ public class AuthService : IAuthService
 
         if (teacher != null)
         {
-            //teacher.Salt = Convert.ToBase64String(RandomNumberGenerator.GetBytes(128));
             if (!PasswordHasher.Verify(request.Password, teacher.Salt, teacher.PasswordHash))
                 throw new UnauthorizedAccessException("Invalid password");
 
@@ -70,6 +75,12 @@ public class AuthService : IAuthService
 
         throw new UnauthorizedAccessException("User not found");
     }
+    /// <summary>
+    /// The changepasswordasync method for the user to change their password
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public async Task ChangePasswordAsync(ChangePasswordRequest request)
     {
         ModeledResponse<Teacher> response = await _supabase

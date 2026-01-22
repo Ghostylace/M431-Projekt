@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/email")]
 public class EmailController : ControllerBase
 {
+
+    /// <summary>
+    /// Sends an email message using the details provided in the request.
+    /// </summary>
+    /// <param name="request">An object containing the recipient's email address, subject, and body of the email message. Cannot be null.</param>
+    /// <returns>An IActionResult indicating the result of the email send operation. Returns Ok if the email was sent
+    /// successfully.</returns>
     [HttpPost]
     public async Task<IActionResult> SendEmail([FromBody] EmailRequest request)
     {

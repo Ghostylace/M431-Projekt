@@ -73,6 +73,9 @@ public partial class AddGradeComponent : ComponentBase
     private List<GradeAdjustmentDto>? grades { get; set; } = [];
     private List<StudentRoundings> roundings { get; set; } = [];
 
+    /// <summary>
+    /// Gets or sets the details of the new grade to be created as part of the adjustment request.
+    /// </summary>
     public CreateGradeAdjustmentRequest NewGrade { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
