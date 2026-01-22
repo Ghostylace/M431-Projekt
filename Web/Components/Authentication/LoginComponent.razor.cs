@@ -51,7 +51,7 @@ public partial class LoginComponent : ComponentBase
 
         EmailRequest email = new EmailRequest()
         {
-            To = "daguy6767@gmail.com",
+            To = Email,
             Subject = "Ihr Zwei-Faktor Code",
             Body = $"{randomCode}"
         };
