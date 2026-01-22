@@ -15,6 +15,10 @@ public class TeacherService : ITeacherService
         _supabase = supabase;
     }
 
+    /// <summary>
+    /// The get method to get all teachers
+    /// </summary>
+    /// <returns><see cref="List{T}"/> instance with type <see cref="TeacherDTO"/></returns>
     public async Task<List<TeacherDTO>> GetAllAsync()
     {
         ModeledResponse<Teacher> response = await _supabase

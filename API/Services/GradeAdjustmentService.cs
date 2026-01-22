@@ -1,11 +1,8 @@
 ﻿using API.Models;
 using API.Services.Abstract;
 using Shared.DTOs.GradAdjustment;
-using Supabase.Postgrest.Responses;
 using Supabase;
-using Azure;
-using Microsoft.Identity.Client;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Supabase.Postgrest.Responses;
 
 namespace API.Services;
 
@@ -18,6 +15,11 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         _supabase = supabase;
     }
 
+    /// <summary>
+    /// The create method for creating a new grade
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns>Instance of type <see cref="GradeAdjustmentDto"/></returns>
     public async Task<GradeAdjustmentDto> CreateAsync(CreateGradeAdjustmentRequest request)
     {
         GradeAdjustment entity = new GradeAdjustment
@@ -56,6 +58,10 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         };
     }
 
+    /// <summary>
+    /// The get method for getting all grades
+    /// </summary>
+    /// <returns><see cref="List{T}"/> instance with type <see cref="GradeAdjustmentDto"/></returns>
     public async Task<List<GradeAdjustmentDto>> GetAllAsync()
     {
         ModeledResponse<GradeAdjustment> response = await _supabase
@@ -87,6 +93,12 @@ public class GradeAdjustmentService : IGradeAdjustmentService
         return toReturn;
     }
 
+    /// <summary>
+    /// The update method to update a grade
+    /// </summary>
+    /// <param name="id">The id of the grade</param>
+    /// <param name="request">The new data for the grade</param>
+    /// <returns>Instance of type <see cref="bool"/></returns>
     public async Task<bool> UpdateStatusAsync(int id, UpdateGradeAdjustmentStatusRequest request)
     {
         ModeledResponse<GradeAdjustment> res = await _supabase

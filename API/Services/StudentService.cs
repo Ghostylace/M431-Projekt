@@ -15,6 +15,10 @@ public class StudentService : IStudentService
         _supabase = supabase;
     }
 
+    /// <summary>
+    /// The get method to get all students
+    /// </summary>
+    /// <returns><see cref="List{T}"/> instance with type <see cref="StudentListDto"/></returns>
     public async Task<List<StudentListDto>> GetAllAsync()
     {
         ModeledResponse<Student> response = await _supabase

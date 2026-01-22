@@ -15,6 +15,10 @@ public class ProrectorService : IProrectorService
         _supabase = supabase;
     }
 
+    /// <summary>
+    /// The get method to get all vice rectors
+    /// </summary>
+    /// <returns><see cref="List{T}"/> instance with type <see cref="ProrektorDTO"/></returns>
     public async Task<List<ProrektorDTO>> GetAllAsync()
     {
         ModeledResponse<Prorector> response = await _supabase

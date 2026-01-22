@@ -29,7 +29,6 @@ public class AuthService : IAuthService
     /// <exception cref="UnauthorizedAccessException"></exception>
     public async Task<LoginResponse> LoginAsync(LoginRequest request)
     {
-        // 1️⃣ Teacher prüfen
         ModeledResponse<Teacher> teacherResponse = await _supabase
             .From<Teacher>()
             .Where(t => t.Email == request.Email)
@@ -51,7 +50,6 @@ public class AuthService : IAuthService
             };
         }
 
-        //2️⃣ Prorector prüfen
         ModeledResponse<Prorector> prorectorResponse = await _supabase
             .From<Prorector>()
             .Where(p => p.Email == request.Email)

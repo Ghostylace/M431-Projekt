@@ -15,6 +15,10 @@ public class ModuleService : IModuleService
         _supabase = supabase;
     }
 
+    /// <summary>
+    /// The get method to get all modules
+    /// </summary>
+    /// <returns><see cref="List{T}"/> instance with type <see cref="ModuleDto"/></returns>
     public async Task<List<ModuleDto>> GetAllAsync()
     {
         ModeledResponse<Module> response = await _supabase
